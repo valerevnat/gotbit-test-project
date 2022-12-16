@@ -17,11 +17,13 @@ const props = defineProps({
 <style lang="scss" scoped>
 @import "../../assets/styles/variables.scss";
 
-.btn-main {
+.btn-main,
+.btn-connect {
     width: 312px;
     height: 52px;
     color: #ffffff;
     font-size: 16px;
+    font-weight: 500;
     border: none;
     background: $main-color;
     border-radius: 8px;
@@ -44,5 +46,9 @@ const props = defineProps({
     border-radius: 8px;
     background-color: inherit;
     cursor: pointer;
+}
+
+.btn-connect {
+    width: 100%;
 }
 </style>

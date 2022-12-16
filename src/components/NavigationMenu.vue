@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { useConnect } from '@/stores/store'
 import ButtonComponent from './base/ButtonComponent.vue'
+
+const storeConnect = useConnect()
+// const wallet = storeConnect.wallet.slice(0, 10)
+
 </script>
 
 <template>
@@ -8,7 +13,8 @@ import ButtonComponent from './base/ButtonComponent.vue'
             <div class="navbar-logo-circle"></div>
             <div class="navbar-logo-title">staking PLATFORM</div>
         </div>
-        <ButtonComponent variant="btn-mini"> Connect wallet </ButtonComponent>
+        <ButtonComponent variant="btn-mini"> {{ storeConnect.wallet ? storeConnect.wallet : 'Connect wallet' }}
+        </ButtonComponent>
     </div>
 </template>
 

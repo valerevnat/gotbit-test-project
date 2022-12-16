@@ -10,6 +10,10 @@ import ComponentTVL from './ComponentTVL.vue';
 const props = defineProps({
     handlerShowModal: {
         type: Function,
+    },
+    content: {
+        type: String,
+        default: ''
     }
 })
 
@@ -33,12 +37,15 @@ const showModal = () => {
         <div class="basic-content-btn">
             <ButtonComponent variant='btn-main' @click="showModal"> Connect wallet </ButtonComponent>
         </div>
+
+
     </div>
 </template>
 
 <style scoped lang="scss">
 .basic-content {
     height: 100%;
+    width: 949px;
     display: flex;
     flex-direction: column;
     align-items: center;
