@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { useConnect } from '@/stores/store'
+import { useConnect } from '@/stores/storeConnect'
+import { useUI } from '@/stores/storeUi'
 import ButtonComponent from './base/ButtonComponent.vue'
 
 const storeConnect = useConnect()
-// const wallet = storeConnect.wallet.slice(0, 10)
+const storeUi = useUI();
+
+const showConnectWallet = () => {
+    storeUi.showModal()
+    storeUi.changeContent('connect-card')
+}
 
 </script>
 
@@ -13,7 +19,11 @@ const storeConnect = useConnect()
             <div class="navbar-logo-circle"></div>
             <div class="navbar-logo-title">staking PLATFORM</div>
         </div>
-        <ButtonComponent variant="btn-mini"> {{ storeConnect.wallet ? storeConnect.wallet : 'Connect wallet' }}
+        <ButtonComponent variant="btn-mini" @click="showConnectWallet"> {{
+                storeConnect.wallet ?
+        `${storeConnect.wallet.slice(0, 10)}...` :
+        'Connect wallet'
+        }}
         </ButtonComponent>
     </div>
 </template>

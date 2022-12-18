@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+
 const props = defineProps({
     variant: {
         type: String,
         default: 'btn-main',
-    }
+    },
 })
 
 </script>
@@ -36,7 +37,11 @@ const props = defineProps({
     border: 2px solid $main-color;
     border-radius: 8px;
     background-color: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    color: #222325;
     cursor: pointer;
+
 }
 
 .btn-metamask {

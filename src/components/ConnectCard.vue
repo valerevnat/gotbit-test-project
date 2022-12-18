@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useConnect } from '@/stores/store'
+import { useConnect } from '@/stores/storeConnect'
+import { useUI } from '@/stores/storeUi'
 import { ref } from 'vue';
 
 import ButtonComponent from './base/ButtonComponent.vue'
@@ -7,16 +8,20 @@ import ComponentAPY from './ComponentAPY.vue';
 import ComponentTVL from './ComponentTVL.vue';
 
 const storeConnect = useConnect()
+const storeUi = useUI();
+
 const amount = ref('')
 
-const handlerAmount = () => {
-    console.log('amount', amount);
-    console.log('balance', storeConnect.balance);
-
-}
 
 const handlerAmountMax = () => {
     amount.value = storeConnect.balance.toString()
+}
+
+const showEnableTransaction = () => {
+    storeUi.showModal()
+    storeUi.changeContent('connect-enable-transaction')
+    console.log('click');
+
 }
 
 </script>
@@ -37,7 +42,7 @@ const handlerAmountMax = () => {
             </div>
         </div>
 
-        <ButtonComponent variant="btn-connect" @click="handlerAmount">Enable</ButtonComponent>
+        <ButtonComponent variant="btn-connect" @click="showEnableTransaction">Enable</ButtonComponent>
     </div>
 
 

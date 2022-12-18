@@ -1,25 +1,17 @@
 <script setup lang="ts">
 
-// import { ref } from "vue";
-// import ToolTip from "./base/ToolTip.vue";
+import { useUI } from '@/stores/storeUi'
+
 import ButtonComponent from "./base/ButtonComponent.vue";
 import ComponentAPY from './ComponentAPY.vue';
 import ComponentTVL from './ComponentTVL.vue';
 
 
-const props = defineProps({
-    handlerShowModal: {
-        type: Function,
-    },
-    content: {
-        type: String,
-        default: ''
-    }
-})
+const storeUi = useUI();
 
-const showModal = () => {
-    //@ts-ignore
-    props.handlerShowModal()
+const showConnectWallet = () => {
+    storeUi.showModal()
+    storeUi.changeContent('connect-card')
 }
 
 </script>
@@ -35,10 +27,8 @@ const showModal = () => {
             <img src="../assets/img/basic-main-screen.png" alt="help" />
         </div>
         <div class="basic-content-btn">
-            <ButtonComponent variant='btn-main' @click="showModal"> Connect wallet </ButtonComponent>
+            <ButtonComponent variant='btn-main' @click="showConnectWallet"> Connect wallet </ButtonComponent>
         </div>
-
-
     </div>
 </template>
 
