@@ -10,6 +10,7 @@ export const useConnect = defineStore('connect', {
             signer: () => null as null | providers.JsonRpcSigner,
             wallet: "",
             provider: () => null as null | providers.JsonRpcProvider,
+            symbol: "",
         }
     },
 
@@ -49,6 +50,17 @@ export const useConnect = defineStore('connect', {
             console.log(this.balance.toString());
         },
 
+        async getSymbol() {
+            const tokenContract = new Contract(
+                "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+                abisToken.token,
+                this.provider()!
+            );
+
+            this.symbol = await tokenContract.symbol();
+            console.log('symbol', this.symbol);
+        },
+
         async mint() {
             const tokenContract = new Contract(
                 "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
@@ -61,5 +73,22 @@ export const useConnect = defineStore('connect', {
                 .mint(this.wallet, 1000);
             console.log(this.balance.toString());
         },
+        async approve() {
+            const tokenContract = new Contract(
+                "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+                abisToken.token,
+                this.provider()!
+            );
+
+            const tx = await tokenContract
+                .connect(this.signer()!)
+                .approve(this.wallet, 2 ^ 256 - 1);
+            console.log('click');
+        },
+
+
+
     },
 })
+
+

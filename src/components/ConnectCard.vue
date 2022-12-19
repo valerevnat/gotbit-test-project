@@ -12,11 +12,6 @@ const storeUi = useUI();
 
 const amount = ref('')
 
-
-const handlerAmountMax = () => {
-    amount.value = storeConnect.balance.toString()
-}
-
 const showEnableTransaction = () => {
     storeUi.showModal()
     storeUi.changeContent('connect-enable-transaction')
@@ -34,11 +29,12 @@ const showEnableTransaction = () => {
         </div>
         <div class="metamask-amount">
             <label for="amount">Enter amount</label>
-            <input type="text" id="amount" v-model="amount" />
-            <div class="metamask-amount-max" @click="handlerAmountMax">MAX</div>
+            <input type="text" id="amount" v-model="amount" disabled
+                :placeholder="`${storeConnect.balance} ${storeConnect.symbol}`" />
+            <div class="metamask-amount-max">MAX</div>
             <div class="metamask-balance">
                 <div class="metamask-balance-text">Balance</div>
-                <div class="metamask-balance-amount">{{ storeConnect.balance }} ABC</div>
+                <div class="metamask-balance-amount">{{ storeConnect.balance }} {{ storeConnect.symbol }}</div>
             </div>
         </div>
 
@@ -80,11 +76,7 @@ const showEnableTransaction = () => {
             position: absolute;
             bottom: 37.5%;
             right: 16px;
-            cursor: pointer;
-
-            &:hover {
-                color: $main-color;
-            }
+            color: $main-color;
         }
     }
 

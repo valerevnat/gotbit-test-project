@@ -1,7 +1,7 @@
 <template>
-    <div class="modal-window" v-if="storeUi.isShowModal" @click="storeUi.showModal">
+    <div class="modal-window" v-if="storeUi.isShowModal">
         <div class="modal-content">
-            <div class="modal-content-close">
+            <div class="modal-content-close" @click="storeUi.showModal">
                 <img src="../../assets/img/close-circle.png" alt="">
             </div>
             <div v-if="storeUi.content === 'connect-card'" class="modal-content-connect">
@@ -29,16 +29,58 @@
                 <div class="modal-content-connect-title">Waiting for confirmation</div>
                 <div class="modal-content-connect-subtitle">It will take some time for the confirmation to be completed.
                 </div>
-                <div class="connect-waitnig-confirmation-preloader">
-                    Тут кружок с preloader
+                <div class="connect-waitnig-confirmation-preloader" v-if="!isBtnShow">
+                    <half-circle-spinner :animation-duration="1000" :size="60" color="#007CFF" />
                 </div>
-                <ButtonComponent variant='btn-mini'>Ok</ButtonComponent>
+                <ButtonComponent variant='btn-mini' v-if="isBtnShow">Ok</ButtonComponent>
+            </div>
+            <div v-if="storeUi.content === 'unstake'" class="modal-content-unstake">
+                <div class="modal-content-connect-title">Unstake</div>
+                <div class="modal-content-connect-subtitle">By pressing Unstake you are withdrawing the amount of tokens
+                    you
+                    both staked and earned. Your current stake stops accumulating rewards in
+                    this case.
+                </div>
+                <div class="connect-unstake-btns">
+                    <ButtonComponent variant='btn-mini'>Cancel</ButtonComponent>
+                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg">Unstake</ButtonComponent>
+                </div>
+            </div>
+            <div v-if="storeUi.content === 'claim'" class="modal-content-claim">
+                <div class="modal-content-connect-title">Claim</div>
+                <div class="modal-content-connect-subtitle">By pressing Claim you are withdrawing only the tokens you
+                    earned while staking. Your stake stays active and continues to accumulate rewards.
+                </div>
+                <div class="connect-unstake-btns">
+                    <ButtonComponent variant='btn-mini'>Cancel</ButtonComponent>
+                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg">Claim</ButtonComponent>
+                </div>
+            </div>
+            <div v-if="storeUi.content === 'unstake-clame-waiting'" class="modal-content-connect">
+                <div class="modal-content-connect-title">Waiting for your tokens</div>
+                <div class="modal-content-connect-subtitle">It will take some time for the transaction to be completed.
+                </div>
+                <div class="connect-waitnig-confirmation-preloader">
+                    <half-circle-spinner :animation-duration="1000" :size="60" color="#007CFF" />
+                </div>
+                <ButtonComponent variant='btn-mini'>Okay</ButtonComponent>
+            </div>
+            <div v-if="storeUi.content === 'stake'" class="modal-content-stake">
+                <div class="modal-content-connect-title">Stake</div>
+                <div class="modal-content-connect-subtitle">By pressing Comfirm you are staking 1000 Coins.
+                </div>
+                <div class="connect-stake-btns">
+                    <ButtonComponent variant='btn-mini'>Cancel</ButtonComponent>
+                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg">Confirm</ButtonComponent>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { HalfCircleSpinner } from 'epic-spinners'
 
 import { useUI } from '@/stores/storeUi'
 import { useConnect } from '@/stores/storeConnect'
@@ -46,11 +88,14 @@ import { useConnect } from '@/stores/storeConnect'
 import ButtonComponent from '@/components/base/ButtonComponent.vue'
 
 const storeUi = useUI();
-const storeConnect = useConnect()
+const storeConnect = useConnect();
+const isBtnShow = ref(false);
 
 const showConnectCard = async () => {
     await storeConnect.connectMetamask()
     await storeConnect.balanceOf()
+    await storeConnect.getSymbol()
+    storeUi.showModal()
     console.log('balance', storeConnect.balance);
 
 }
@@ -58,10 +103,11 @@ const showConnectCard = async () => {
 const cancelTransaction = () => {
     storeUi.changeContent('connect-card')
 }
-const confirmTransaction = () => {
-    storeUi.showModal()
+
+const confirmTransaction = async () => {
     storeUi.changeContent('connect-waitnig-confirmation')
-    console.log(storeUi.content);
+    await storeConnect.approve()
+    isBtnShow.value = true;
 
 }
 
