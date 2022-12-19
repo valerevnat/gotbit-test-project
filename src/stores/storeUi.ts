@@ -6,7 +6,8 @@ export const useUI = defineStore('uiStore', {
         return {
             isShowModal: false,
             isDisabled: false,
-            content: 'not-connect'
+            content: 'not-connect',
+            contentStake: ''
         }
     },
 
@@ -18,6 +19,10 @@ export const useUI = defineStore('uiStore', {
 
         changeContent(payload: string) {
             this.content = payload
+        },
+
+        changeContentStake(payload: string) {
+            this.contentStake = payload
         }
     },
 })

@@ -19,7 +19,8 @@ const props = defineProps({
 @import "../../assets/styles/variables.scss";
 
 .btn-main,
-.btn-connect {
+.btn-connect,
+.btn-main-disabled {
     width: 312px;
     height: 52px;
     color: #ffffff;
@@ -54,6 +55,11 @@ const props = defineProps({
 }
 
 .btn-connect {
+    width: 100%;
+}
+
+.btn-main-disabled {
+    opacity: 0.5;
     width: 100%;
 }
 </style>

@@ -6,6 +6,7 @@ import { ref } from 'vue';
 import ButtonComponent from './base/ButtonComponent.vue'
 import ComponentAPY from './ComponentAPY.vue';
 import ComponentTVL from './ComponentTVL.vue';
+import ActiveStake from './ActiveStake.vue';
 
 const storeConnect = useConnect()
 const storeUi = useUI();
@@ -38,8 +39,13 @@ const showEnableTransaction = () => {
             </div>
         </div>
 
-        <ButtonComponent variant="btn-connect" @click="showEnableTransaction">Enable</ButtonComponent>
+        <ButtonComponent v-if="storeUi.contentStake !== 'active-stake' && storeUi.content === 'connect-card'"
+            variant="btn-connect" @click="showEnableTransaction">Enable</ButtonComponent>
+        <ButtonComponent v-if="storeUi.contentStake === 'active-stake'" variant="btn-main-disabled">Stake
+        </ButtonComponent>
     </div>
+
+    <ActiveStake v-if="storeUi.contentStake === 'active-stake'" />
 
 
 </template>

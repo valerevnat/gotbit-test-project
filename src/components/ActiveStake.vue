@@ -1,6 +1,21 @@
 <script setup lang="ts">
+import { useUI } from '@/stores/storeUi'
+import { useConnect } from '@/stores/storeConnect'
 
 import ButtonComponent from './base/ButtonComponent.vue';
+
+const storeUi = useUI();
+const storeConnect = useConnect();
+
+const handlerUnstake = () => {
+    storeUi.showModal()
+    storeUi.changeContent('unstake')
+}
+
+const handlerShowClaim = () => {
+    storeUi.showModal()
+    storeUi.changeContent('claim')
+}
 
 </script>
 
@@ -12,22 +27,22 @@ import ButtonComponent from './base/ButtonComponent.vue';
                 <div>
                     <div class="active-stake-info-text">You have staked</div>
                     <div class="active-stake-info-coin">
-                        <div class="active-stake-info-coin-number"></div>
+                        <div class="active-stake-info-coin-number">{{ storeConnect.userStake[0] }}</div>
                         <div class="active-stake-info-coin-text">Coin</div>
                     </div>
                 </div>
                 <div>
                     <div class="active-stake-info-text">Earned</div>
                     <div class="active-stake-info-coin">
-                        <div class="active-stake-info-coin-number"></div>
+                        <div class="active-stake-info-coin-number">{{ storeConnect.userStake[1] }}</div>
                         <div class="active-stake-info-coin-text">Coin</div>
                     </div>
                 </div>
                 <div class="active-stake-info-btn">
-                    <ButtonComponent>Claim</ButtonComponent>
+                    <ButtonComponent variant='btn-mini' @click="handlerShowClaim">Claim</ButtonComponent>
                 </div>
             </div>
-            <ButtonComponent>Unstake</ButtonComponent>
+            <ButtonComponent variant='btn-mini' @click="handlerUnstake">Unstake</ButtonComponent>
         </div>
     </div>
 </template>

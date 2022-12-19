@@ -32,7 +32,7 @@
                 <div class="connect-waitnig-confirmation-preloader" v-if="!isBtnShow">
                     <half-circle-spinner :animation-duration="1000" :size="60" color="#007CFF" />
                 </div>
-                <ButtonComponent variant='btn-mini' v-if="isBtnShow">Ok</ButtonComponent>
+                <ButtonComponent variant='btn-mini' v-if="isBtnShow" @click="showActiveStake">Ok</ButtonComponent>
             </div>
             <div v-if="storeUi.content === 'unstake'" class="modal-content-unstake">
                 <div class="modal-content-connect-title">Unstake</div>
@@ -43,7 +43,8 @@
                 </div>
                 <div class="connect-unstake-btns">
                     <ButtonComponent variant='btn-mini'>Cancel</ButtonComponent>
-                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg">Unstake</ButtonComponent>
+                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg">Unstake
+                    </ButtonComponent>
                 </div>
             </div>
             <div v-if="storeUi.content === 'claim'" class="modal-content-claim">
@@ -53,17 +54,18 @@
                 </div>
                 <div class="connect-unstake-btns">
                     <ButtonComponent variant='btn-mini'>Cancel</ButtonComponent>
-                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg">Claim</ButtonComponent>
+                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg" @click="handlerClaim">Claim
+                    </ButtonComponent>
                 </div>
             </div>
             <div v-if="storeUi.content === 'unstake-clame-waiting'" class="modal-content-connect">
                 <div class="modal-content-connect-title">Waiting for your tokens</div>
                 <div class="modal-content-connect-subtitle">It will take some time for the transaction to be completed.
                 </div>
-                <div class="connect-waitnig-confirmation-preloader">
+                <div class="connect-waitnig-confirmation-preloader" v-if="!isBtnShow">
                     <half-circle-spinner :animation-duration="1000" :size="60" color="#007CFF" />
                 </div>
-                <ButtonComponent variant='btn-mini'>Okay</ButtonComponent>
+                <ButtonComponent variant='btn-mini' v-if="isBtnShow">Okay</ButtonComponent>
             </div>
             <div v-if="storeUi.content === 'stake'" class="modal-content-stake">
                 <div class="modal-content-connect-title">Stake</div>
@@ -107,8 +109,28 @@ const cancelTransaction = () => {
 const confirmTransaction = async () => {
     storeUi.changeContent('connect-waitnig-confirmation')
     await storeConnect.approve()
+    await storeConnect.getUserActiveStake()
     isBtnShow.value = true;
 
+}
+
+const showActiveStake = () => {
+    storeUi.changeContent('connect-card')
+    storeUi.changeContentStake('active-stake')
+    storeUi.showModal()
+
+}
+
+// const handlerUnstake = async () => {
+//     storeUi.changeContent('unstake-clame-waiting')
+//     await storeConnect.withdraw()
+//     isBtnShow.value = true;
+// }
+
+const handlerClaim = async () => {
+    storeUi.changeContent('connect-waitnig-confirmation')
+    await storeConnect.claim()
+    isBtnShow.value = true;
 }
 
 

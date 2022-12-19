@@ -55,6 +55,7 @@ const storeUi = useUI();
 
     &-content {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         background: #FFFFFF;

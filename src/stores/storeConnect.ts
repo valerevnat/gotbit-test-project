@@ -11,6 +11,8 @@ export const useConnect = defineStore('connect', {
             wallet: "",
             provider: () => null as null | providers.JsonRpcProvider,
             symbol: "",
+
+            userStake: [],
         }
     },
 
@@ -86,6 +88,46 @@ export const useConnect = defineStore('connect', {
             console.log('click');
         },
 
+        async getUserActiveStake() {
+            const contract = new Contract(
+                "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                abisToken.staking,
+                this.provider()!
+            );
+
+            this.userStake = await contract.getUserStake(this.wallet)
+            console.log('userStake', this.userStake);
+        },
+
+        async withdraw() {
+            const contract = new Contract(
+                "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                abisToken.staking,
+                this.provider()!
+            );
+
+            const tx = await contract
+                .connect(this.signer()!)
+                .withdraw();
+
+            console.log('tx', tx);
+
+        },
+
+        async claim() {
+            const contract = new Contract(
+                "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                abisToken.staking,
+                this.provider()!
+            );
+
+            const tx = await contract
+                .connect(this.signer()!)
+                .claim();
+
+            console.log('tx', tx);
+
+        }
 
 
     },
