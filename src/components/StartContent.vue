@@ -1,17 +1,18 @@
 <script setup lang="ts">
 
 import { useUI } from '@/stores/storeUi'
+// import { useConnect } from '@/stores/storeConnect'
 
 import ButtonComponent from "./base/ButtonComponent.vue";
 import ComponentAPY from './ComponentAPY.vue';
 import ComponentTVL from './ComponentTVL.vue';
 
-
+// const storeConnect = useConnect();
 const storeUi = useUI();
 
-const showConnectWallet = () => {
+const showConnectWallet = async () => {
     storeUi.showModal()
-    storeUi.changeContent('connect-card')
+    storeUi.changeContentModal('connect-card-modal')
 }
 
 </script>

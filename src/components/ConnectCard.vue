@@ -1,23 +1,34 @@
 <script setup lang="ts">
 import { useConnect } from '@/stores/storeConnect'
 import { useUI } from '@/stores/storeUi'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import ButtonComponent from './base/ButtonComponent.vue'
 import ComponentAPY from './ComponentAPY.vue';
 import ComponentTVL from './ComponentTVL.vue';
-import ActiveStake from './ActiveStake.vue';
+// import ActiveStake from './ActiveStake.vue';
 
 const storeConnect = useConnect()
 const storeUi = useUI();
 
 const amount = ref('')
+const balance = ref()
+balance.value = +storeConnect.balance / 1000000000000000000
+
+onMounted(() => {
+    storeConnect.getAPY();
+    storeConnect.getTVL();
+})
 
 const showEnableTransaction = () => {
     storeUi.showModal()
-    storeUi.changeContent('connect-enable-transaction')
+    storeUi.changeContentModal('connect-enable-transaction')
     console.log('click');
 
+}
+
+const handlerStake = () => {
+    storeConnect.stake()
 }
 
 </script>
@@ -31,21 +42,25 @@ const showEnableTransaction = () => {
         <div class="metamask-amount">
             <label for="amount">Enter amount</label>
             <input type="text" id="amount" v-model="amount" disabled
-                :placeholder="`${storeConnect.balance} ${storeConnect.symbol}`" />
+                :placeholder="`${balance} ${storeConnect.symbol}`" />
             <div class="metamask-amount-max">MAX</div>
             <div class="metamask-balance">
                 <div class="metamask-balance-text">Balance</div>
-                <div class="metamask-balance-amount">{{ storeConnect.balance }} {{ storeConnect.symbol }}</div>
+                <div class="metamask-balance-amount">{{ balance }} {{ storeConnect.symbol }}
+                </div>
             </div>
         </div>
 
         <ButtonComponent v-if="storeUi.contentStake !== 'active-stake' && storeUi.content === 'connect-card'"
             variant="btn-connect" @click="showEnableTransaction">Enable</ButtonComponent>
-        <ButtonComponent v-if="storeUi.contentStake === 'active-stake'" variant="btn-main-disabled">Stake
+        <!-- <ButtonComponent v-if="storeUi.contentStake === 'active-stake'" variant="btn-main-disabled">Stake
+        </ButtonComponent> -->
+        <ButtonComponent v-if="storeUi.contentStake === 'active-stake'" variant="btn-main btn-connect"
+            @click="handlerStake">Stake
         </ButtonComponent>
     </div>
 
-    <ActiveStake v-if="storeUi.contentStake === 'active-stake'" />
+    <!-- <ActiveStake v-if="storeUi.contentStake === 'active-stake'" /> -->
 
 
 </template>

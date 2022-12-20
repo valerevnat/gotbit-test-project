@@ -6,6 +6,8 @@ import { useUI } from '@/stores/storeUi'
 import ModalWindow from './base/ModalWindow.vue';
 import StartContent from './StartContent.vue';
 import ConnectCard from './ConnectCard.vue';
+import ActiveStake from './ActiveStake.vue';
+
 
 
 const storeUi = useUI();
@@ -23,6 +25,10 @@ const storeUi = useUI();
             <StartContent v-if="storeUi.content === 'not-connect'" />
             <ConnectCard v-if="storeUi.content === 'connect-card'" />
             <ModalWindow v-if="storeUi.isShowModal"></ModalWindow>
+        </div>
+        <div>
+            <ActiveStake v-if="storeUi.contentStake === 'active-stake'" />
+
         </div>
     </div>
 </template>

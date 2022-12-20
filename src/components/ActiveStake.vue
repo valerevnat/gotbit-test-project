@@ -9,12 +9,12 @@ const storeConnect = useConnect();
 
 const handlerUnstake = () => {
     storeUi.showModal()
-    storeUi.changeContent('unstake')
+    storeUi.changeContentModal('unstake')
 }
 
 const handlerShowClaim = () => {
     storeUi.showModal()
-    storeUi.changeContent('claim')
+    storeUi.changeContentModal('claim')
 }
 
 </script>
@@ -24,14 +24,14 @@ const handlerShowClaim = () => {
         <div class="active-stake-title">Active Stake</div>
         <div class="active-stake-info">
             <div class="active-stake-info-main">
-                <div>
+                <div class="active-stake-info-main-subtitle">
                     <div class="active-stake-info-text">You have staked</div>
                     <div class="active-stake-info-coin">
                         <div class="active-stake-info-coin-number">{{ storeConnect.userStake[0] }}</div>
                         <div class="active-stake-info-coin-text">Coin</div>
                     </div>
                 </div>
-                <div>
+                <div class="active-stake-info-main-subtitle">
                     <div class="active-stake-info-text">Earned</div>
                     <div class="active-stake-info-coin">
                         <div class="active-stake-info-coin-number">{{ storeConnect.userStake[1] }}</div>
@@ -39,14 +39,57 @@ const handlerShowClaim = () => {
                     </div>
                 </div>
                 <div class="active-stake-info-btn">
-                    <ButtonComponent variant='btn-mini' @click="handlerShowClaim">Claim</ButtonComponent>
+                    <ButtonComponent variant='btn-mini-bcg' @click="handlerShowClaim">Claim</ButtonComponent>
                 </div>
             </div>
-            <ButtonComponent variant='btn-mini' @click="handlerUnstake">Unstake</ButtonComponent>
+            <ButtonComponent variant='btn-connect-border' @click="handlerUnstake">Unstake</ButtonComponent>
+            <!-- <ButtonComponent variant='btn-connect-border' @click="() => storeConnect.mint()">Mint</ButtonComponent> -->
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
+.active-stake {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 621px;
+    min-height: 204px;
 
+    margin-top: 40px;
+
+    &-title {
+        font-weight: 700;
+        font-size: 38px;
+        color: #000000;
+    }
+
+    &-info {
+        width: 100%;
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #FFFFFF;
+        border-radius: 24px;
+        padding: 24px 31px;
+
+        // display: flex;
+        &-main {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+
+            &-subtitle {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        &-coin {
+            display: flex;
+        }
+    }
+}
 </style>

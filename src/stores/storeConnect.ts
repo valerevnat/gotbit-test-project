@@ -11,8 +11,9 @@ export const useConnect = defineStore('connect', {
             wallet: "",
             provider: () => null as null | providers.JsonRpcProvider,
             symbol: "",
-
             userStake: [],
+            apy: '',
+            tvl: ''
         }
     },
 
@@ -72,7 +73,7 @@ export const useConnect = defineStore('connect', {
 
             const tx = await tokenContract
                 .connect(this.signer()!)
-                .mint(this.wallet, 1000);
+                .mint(this.wallet, BigNumber.from('100000000000000000000'));
             console.log(this.balance.toString());
         },
         async approve() {
@@ -84,50 +85,78 @@ export const useConnect = defineStore('connect', {
 
             const tx = await tokenContract
                 .connect(this.signer()!)
-                .approve(this.wallet, 2 ^ 256 - 1);
+                .approve("0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648", BigNumber.from('100000000000000000000'));
             console.log('click');
         },
 
         async getUserActiveStake() {
-            const contract = new Contract(
+            const contractStaking = new Contract(
                 "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
                 abisToken.staking,
                 this.provider()!
             );
 
-            this.userStake = await contract.getUserStake(this.wallet)
+            this.userStake = await contractStaking.getUserStake(this.wallet)
             console.log('userStake', this.userStake);
         },
 
-        async withdraw() {
-            const contract = new Contract(
+        async getAPY() {
+            const contractStaking = new Contract(
                 "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
                 abisToken.staking,
                 this.provider()!
             );
 
-            const tx = await contract
+            this.apy = await contractStaking.getAPY()
+            console.log('APY', this.apy);
+        },
+
+        async getTVL() {
+            const contractStaking = new Contract(
+                "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                abisToken.staking,
+                this.provider()!
+            );
+
+            this.apy = await contractStaking.totalSupply()
+            console.log('TVL', this.tvl);
+        },
+
+        async withdraw() {
+            const contractStaking = new Contract(
+                "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                abisToken.staking,
+                this.provider()!
+            );
+
+            const tx = await contractStaking
                 .connect(this.signer()!)
                 .withdraw();
-
-            console.log('tx', tx);
-
         },
 
         async claim() {
-            const contract = new Contract(
+            const contractStaking = new Contract(
                 "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
                 abisToken.staking,
                 this.provider()!
             );
 
-            const tx = await contract
+            const tx = await contractStaking
                 .connect(this.signer()!)
                 .claim();
+        },
 
-            console.log('tx', tx);
+        async stake() {
+            const contractStaking = new Contract(
+                "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                abisToken.staking,
+                this.provider()!
+            );
 
-        }
+            const tx = await contractStaking
+                .connect(this.signer()!)
+                .stake(BigNumber.from('1000000000000000000'));
+        },
 
 
     },

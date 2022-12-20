@@ -7,6 +7,7 @@ export const useUI = defineStore('uiStore', {
             isShowModal: false,
             isDisabled: false,
             content: 'not-connect',
+            contentModal: '',
             contentStake: ''
         }
     },
@@ -19,6 +20,10 @@ export const useUI = defineStore('uiStore', {
 
         changeContent(payload: string) {
             this.content = payload
+        },
+
+        changeContentModal(payload: string) {
+            this.contentModal = payload
         },
 
         changeContentStake(payload: string) {

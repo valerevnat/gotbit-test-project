@@ -20,7 +20,8 @@ const props = defineProps({
 
 .btn-main,
 .btn-connect,
-.btn-main-disabled {
+.btn-main-disabled,
+.btn-mini-bcg {
     width: 312px;
     height: 52px;
     color: #ffffff;
@@ -32,7 +33,8 @@ const props = defineProps({
     cursor: pointer;
 }
 
-.btn-mini {
+.btn-mini,
+.btn-connect-border {
     width: 157px;
     height: 44px;
     border: 2px solid $main-color;
@@ -54,12 +56,19 @@ const props = defineProps({
     cursor: pointer;
 }
 
-.btn-connect {
+.btn-connect,
+.btn-connect-border {
     width: 100%;
 }
 
 .btn-main-disabled {
     opacity: 0.5;
     width: 100%;
+}
+
+.btn-mini-bcg {
+    width: 145px;
+    height: 44px;
+    background-color: $main-color;
 }
 </style>
