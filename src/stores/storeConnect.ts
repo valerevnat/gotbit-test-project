@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { BigNumber, providers, Contract } from 'ethers'
+import { BigNumber, providers, Contract, constants } from 'ethers'
 import abisToken from "../assets/abis/token.json";
 
 export const useConnect = defineStore('connect', {
@@ -13,7 +13,8 @@ export const useConnect = defineStore('connect', {
             symbol: "",
             userStake: [],
             apy: '',
-            tvl: ''
+            tvl: '',
+            allowance: ''
         }
     },
 
@@ -85,7 +86,7 @@ export const useConnect = defineStore('connect', {
 
             const tx = await tokenContract
                 .connect(this.signer()!)
-                .approve("0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648", BigNumber.from('100000000000000000000'));
+                .approve("0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648", constants.MaxUint256);
             console.log('click');
         },
 
@@ -118,7 +119,7 @@ export const useConnect = defineStore('connect', {
                 this.provider()!
             );
 
-            this.apy = await contractStaking.totalSupply()
+            this.tvl = await contractStaking.totalSupply()
             console.log('TVL', this.tvl);
         },
 
@@ -146,7 +147,7 @@ export const useConnect = defineStore('connect', {
                 .claim();
         },
 
-        async stake() {
+        async stake(amount: BigNumber) {
             const contractStaking = new Contract(
                 "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
                 abisToken.staking,
@@ -155,8 +156,20 @@ export const useConnect = defineStore('connect', {
 
             const tx = await contractStaking
                 .connect(this.signer()!)
-                .stake(BigNumber.from('1000000000000000000'));
+                .stake(amount);
         },
+
+        async getAllowance() {
+            const tokenContract = new Contract(
+                "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+                abisToken.token,
+                this.provider()!
+            );
+
+            this.allowance = await tokenContract.allowance(this.wallet, '0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648')
+            console.log('allowance', this.allowance);
+        },
+
 
 
     },
