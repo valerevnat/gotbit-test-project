@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { BigNumber, providers, Contract, constants } from 'ethers'
-import abisToken from "../assets/abis/token.json";
+import abis from "../assets/abis/abis.json";
 declare let window: any
 
 interface IUserStake {
@@ -56,7 +56,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const tokenContract = new Contract(
                     "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
+                    abis.token,
                     this.provider()!
                 );
 
@@ -73,7 +73,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const tokenContract = new Contract(
                     "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
+                    abis.token,
                     this.provider()!
                 );
 
@@ -88,7 +88,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const tokenContract = new Contract(
                     "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
+                    abis.token,
                     this.provider()!
                 );
 
@@ -104,7 +104,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const tokenContract = new Contract(
                     "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
+                    abis.token,
                     this.provider()!
                 );
 
@@ -121,7 +121,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const contractStaking = new Contract(
                     "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abisToken.staking,
+                    abis.staking,
                     this.provider()!
                 );
 
@@ -136,7 +136,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const contractStaking = new Contract(
                     "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abisToken.staking,
+                    abis.staking,
                     this.provider()!
                 );
 
@@ -151,7 +151,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const contractStaking = new Contract(
                     "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abisToken.staking,
+                    abis.staking,
                     this.provider()!
                 );
 
@@ -166,7 +166,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const contractStaking = new Contract(
                     "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abisToken.staking,
+                    abis.staking,
                     this.provider()!
                 );
 
@@ -183,7 +183,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const contractStaking = new Contract(
                     "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abisToken.staking,
+                    abis.staking,
                     this.provider()!
                 );
 
@@ -200,7 +200,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const contractStaking = new Contract(
                     "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abisToken.staking,
+                    abis.staking,
                     this.provider()!
                 );
 
@@ -217,7 +217,7 @@ export const useConnect = defineStore('connect', {
             try {
                 const tokenContract = new Contract(
                     "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
+                    abis.token,
                     this.provider()!
                 );
                 this.allowance = await tokenContract.allowance(this.wallet, '0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648')
