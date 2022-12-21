@@ -238,7 +238,8 @@ const approveStake = async () => {
             }
 
             .btn-mini-bcg-color-white {
-                color: #fff
+                color: #fff;
+                margin-left: 16px;
             }
         }
 

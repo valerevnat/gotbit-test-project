@@ -13,16 +13,18 @@ interface IUserStake {
 export const useConnect = defineStore('connect', {
     state: () => {
         return {
-            connected: false as boolean,
-            balance: BigNumber.from(0) as BigNumber,
-            signer: () => null as null | providers.JsonRpcSigner,
             wallet: "" as string,
+            connected: false as boolean,
+            signer: () => null as null | providers.JsonRpcSigner,
             provider: () => null as null | providers.JsonRpcProvider,
+
+            balance: BigNumber.from(0) as BigNumber,
             symbol: "" as string,
+            allowance: '' as string,
+
             userStake: [] as IUserStake[],
             apy: '' as string,
             tvl: '' as string,
-            allowance: '' as string
         }
     },
 
@@ -52,7 +54,6 @@ export const useConnect = defineStore('connect', {
         },
 
         async balanceOf() {
-
             try {
                 const tokenContract = new Contract(
                     "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
@@ -84,6 +85,20 @@ export const useConnect = defineStore('connect', {
 
         },
 
+        async getAllowance() {
+            try {
+                const tokenContract = new Contract(
+                    "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+                    abis.token,
+                    this.provider()!
+                );
+                this.allowance = await tokenContract.allowance(this.wallet, '0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648')
+            } catch (error) {
+                console.log('Error allowance', error);
+            }
+
+        },
+
         async mint() {
             try {
                 const tokenContract = new Contract(
@@ -100,6 +115,7 @@ export const useConnect = defineStore('connect', {
             }
 
         },
+
         async approve() {
             try {
                 const tokenContract = new Contract(
@@ -116,6 +132,8 @@ export const useConnect = defineStore('connect', {
             }
 
         },
+
+
 
         async getUserActiveStake() {
             try {
@@ -212,22 +230,6 @@ export const useConnect = defineStore('connect', {
             }
 
         },
-
-        async getAllowance() {
-            try {
-                const tokenContract = new Contract(
-                    "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abis.token,
-                    this.provider()!
-                );
-                this.allowance = await tokenContract.allowance(this.wallet, '0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648')
-            } catch (error) {
-                console.log('Error allowance', error);
-            }
-
-        },
-
-
 
     },
 })

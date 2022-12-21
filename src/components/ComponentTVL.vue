@@ -17,7 +17,7 @@ const showTooltip = () => {
     <div class="basic-content-tvl">
         <div class="basic-content-tvl-text">
             <div class="basic-content-tvl-text-left">TVL</div>
-            <div>{{ +storeConnect.tvl / Math.pow(10, 18) }} $</div>
+            <div>{{ (+storeConnect.tvl / Math.pow(10, 18)).toFixed(3) }} $</div>
         </div>
         <div class="basic-content-tvl-help">
             <div class="basic-content-tvl-help-btn" @click="showTooltip">
