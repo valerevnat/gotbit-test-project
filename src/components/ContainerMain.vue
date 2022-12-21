@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-// import { useConnect } from '@/stores/storeConnect'
+import { useConnect } from '@/stores/storeConnect'
 import { useUI } from '@/stores/storeUi'
 
 import ModalWindow from './base/ModalWindow.vue';
@@ -9,7 +9,7 @@ import ConnectCard from './ConnectCard.vue';
 import ActiveStake from './ActiveStake.vue';
 
 
-
+const storeConnect = useConnect()
 const storeUi = useUI();
 
 
@@ -27,7 +27,7 @@ const storeUi = useUI();
             <ModalWindow v-if="storeUi.isShowModal"></ModalWindow>
         </div>
         <div>
-            <ActiveStake v-if="storeUi.contentStake === 'active-stake'" />
+            <ActiveStake v-if="storeConnect.allowance" />
 
         </div>
     </div>
@@ -41,7 +41,7 @@ const storeUi = useUI();
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 44px;
+    margin-top: 110px;
 
     .title {
         display: flex;

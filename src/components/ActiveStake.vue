@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted } from 'vue';
+
 import { useUI } from '@/stores/storeUi'
 import { useConnect } from '@/stores/storeConnect'
 
@@ -6,6 +8,20 @@ import ButtonComponent from './base/ButtonComponent.vue';
 
 const storeUi = useUI();
 const storeConnect = useConnect();
+const updateUSerStake = () => {
+    storeConnect.getUserActiveStake();
+    console.log('chjvhjcv');
+
+}
+
+onMounted(() => {
+    setInterval(updateUSerStake, 3000)
+})
+
+onBeforeUnmount(() => {
+    clearInterval(updateUSerStake)
+})
+
 
 const handlerUnstake = () => {
     storeUi.showModal()
@@ -27,14 +43,16 @@ const handlerShowClaim = () => {
                 <div class="active-stake-info-main-subtitle">
                     <div class="active-stake-info-text">You have staked</div>
                     <div class="active-stake-info-coin">
-                        <div class="active-stake-info-coin-number">{{ storeConnect.userStake[0] }}</div>
+                        <div class="active-stake-info-coin-number">{{ +storeConnect.userStake[0] / Math.pow(10, 18) }}
+                        </div>
                         <div class="active-stake-info-coin-text">Coin</div>
                     </div>
                 </div>
                 <div class="active-stake-info-main-subtitle">
                     <div class="active-stake-info-text">Earned</div>
                     <div class="active-stake-info-coin">
-                        <div class="active-stake-info-coin-number">{{ storeConnect.userStake[1] }}</div>
+                        <div class="active-stake-info-coin-number">{{ +storeConnect.userStake[1] / Math.pow(10, 18) }}
+                        </div>
                         <div class="active-stake-info-coin-text">Coin</div>
                     </div>
                 </div>
@@ -43,6 +61,7 @@ const handlerShowClaim = () => {
                 </div>
             </div>
             <ButtonComponent variant='btn-connect-border' @click="handlerUnstake">Unstake</ButtonComponent>
+            <!-- <ButtonComponent variant='btn-connect-border' @click="() => storeConnect.mint()">Mint</ButtonComponent> -->
             <!-- <ButtonComponent variant='btn-connect-border' @click="() => storeConnect.mint()">Mint</ButtonComponent> -->
         </div>
     </div>
@@ -55,8 +74,7 @@ const handlerShowClaim = () => {
     align-items: center;
     min-width: 621px;
     min-height: 204px;
-
-    margin-top: 40px;
+    margin: 40px 0;
 
     &-title {
         font-weight: 700;

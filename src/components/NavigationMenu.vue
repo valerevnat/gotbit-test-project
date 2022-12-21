@@ -38,6 +38,10 @@ const showConnectWallet = () => {
     align-items: center;
     border: 1px solid #d7d8df;
 
+    position: fixed;
+    top: 0;
+    width: 100%;
+
     &-logo {
         display: flex;
         align-items: center;

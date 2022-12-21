@@ -8,20 +8,22 @@ const tooltip = ref<boolean>(false)
 
 const showTooltip = () => {
     tooltip.value = !tooltip.value
+    console.log('tooltip', tooltip.value);
+
 }
 </script>
 
 
 <template>
     <div class="basic-content-apy">
-        <div class="basic-content-apy-text">{{ storeConnect.apy }} APY</div>
+        <div class="basic-content-apy-text">{{ +storeConnect.apy / 10000 }}% APY</div>
         <div class="basic-content-apy-help">
             <div class="basic-content-apy-help-btn" @click="showTooltip">
                 <img src="../assets/img/help-active.svg" alt="help" />
             </div>
         </div>
         <div class="basic-content-apy-tooltip">
-            <ToolTip @showTooltip="showTooltip" :tooltip="tooltip">
+            <ToolTip :tooltip="tooltip">
                 <div class="basic-content-apy-help-text">
                     Текст с подсказкой Текст с подсказкой Текст с подсказкой Текст с
                     подсказкой Текст с подсказкой

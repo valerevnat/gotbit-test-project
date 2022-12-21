@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { HalfCircleSpinner } from 'epic-spinners'
+import { parseEther } from 'ethers/lib/utils';
 
 import { useUI } from '@/stores/storeUi'
 import { useConnect } from '@/stores/storeConnect'
@@ -52,6 +53,14 @@ const handlerClaim = async () => {
     isBtnShow.value = true;
 }
 
+const approveStake = async () => {
+    const num = parseEther(storeUi.amountStake);
+    await storeConnect.stake(num)
+    await storeConnect.balanceOf()
+    storeUi.amountStake = ''
+    storeUi.showModal()
+}
+
 
 </script>
 
@@ -61,7 +70,6 @@ const handlerClaim = async () => {
             <div class="modal-content-close" @click="storeUi.showModal">
                 <img src="../../assets/img/close-circle.png" alt="">
             </div>
-
             <div v-if="storeUi.contentModal === 'connect-card-modal'" class="modal-content-connect">
                 <div class="modal-content-connect-title">Connect wallet</div>
                 <div class="modal-content-connect-subtitle">To perform actions on this page you need to connect your
@@ -133,8 +141,20 @@ const handlerClaim = async () => {
                 </div>
                 <div class="connect-stake-btns connect-enable-transaction-btns">
                     <ButtonComponent variant='btn-mini'>Cancel</ButtonComponent>
-                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg">Confirm</ButtonComponent>
+                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg">Confirm
+                    </ButtonComponent>
                 </div>
+            </div>
+
+            <div class="modal-content-connect" v-if="storeUi.contentModal === 'stake-ok'">
+                <div class="modal-content-connect-title">Stake</div>
+                <div class="modal-content-connect-subtitle">By pressing Comfirm you are staking {{ storeUi.amountStake
+                }} Coins.
+                </div>
+                <ButtonComponent variant='btn-mini' class="btn-mini-bcg btn-mini-bcg-color-white" @click="approveStake">
+                    Stake
+                </ButtonComponent>
+
             </div>
         </div>
     </div>
@@ -207,6 +227,10 @@ const handlerClaim = async () => {
                 color: #58595C;
                 margin-bottom: 32px;
             }
+
+            .btn-mini-bcg-color-white {
+                color: #fff
+            }
         }
 
         // &-claim {
@@ -227,6 +251,8 @@ const handlerClaim = async () => {
                 }
             }
         }
+
+
     }
 }
 </style>

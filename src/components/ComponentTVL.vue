@@ -15,15 +15,15 @@ const showTooltip = () => {
     <div class="basic-content-tvl">
         <div class="basic-content-tvl-text">
             <div class="basic-content-tvl-text-left">TVL</div>
-            <div>{{ storeConnect.tvl }} $</div>
+            <div>{{ +storeConnect.tvl / Math.pow(10, 18) }} $</div>
         </div>
         <div class="basic-content-tvl-help">
-            <div class="basic-content-apy-help-btn" @click="showTooltip">
+            <div class="basic-content-tvl-help-btn" @click="showTooltip">
                 <img src="../assets/img/help-inactive.svg" alt="help" />
             </div>
         </div>
         <div class="basic-content-tvl-tooltip">
-            <ToolTip @showTooltip="showTooltip" :tooltip="tooltip">
+            <ToolTip :tooltip="tooltip">
                 <div class="basic-content-tvl-help-text">Текст подсказка TVL</div>
             </ToolTip>
         </div>

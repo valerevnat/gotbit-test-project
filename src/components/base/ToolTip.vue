@@ -5,16 +5,16 @@ const props = defineProps({
         default: false,
     },
 })
-const emit = defineEmits(['showTooltip'])
+// const emit = defineEmits(['showTooltip'])
 
-const handelShowToltip = () => {
-    emit('showTooltip')
-}
+// const handelShowToltip = () => {
+//     emit('showTooltip')
+// }
 
 </script>
 
 <template>
-    <div class="tooltip" v-if="props.tooltip" @click="handelShowToltip">
+    <div class="tooltip" v-if="props.tooltip">
         <div class="tooltip-triangle"></div>
         <div class="tooltip-content">
             <slot></slot>

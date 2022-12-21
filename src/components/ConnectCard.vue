@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import { useConnect } from '@/stores/storeConnect'
 import { useUI } from '@/stores/storeUi'
-// import { BigNumber } from 'ethers';
-import { parseEther } from 'ethers/lib/utils';
+// import { parseEther } from 'ethers/lib/utils';
 import { onMounted, ref } from 'vue';
 
 import ButtonComponent from './base/ButtonComponent.vue'
 import ComponentAPY from './ComponentAPY.vue';
 import ComponentTVL from './ComponentTVL.vue';
-// import ActiveStake from './ActiveStake.vue';
 
 const storeConnect = useConnect()
 const storeUi = useUI();
 
-const amount = ref()
 const balance = ref()
 balance.value = +storeConnect.balance / 1000000000000000000
 
@@ -21,6 +18,7 @@ onMounted(() => {
     storeConnect.getAPY();
     storeConnect.getTVL();
     storeConnect.getAllowance();
+    storeConnect.getUserActiveStake()
 })
 
 const showEnableTransaction = () => {
@@ -30,29 +28,34 @@ const showEnableTransaction = () => {
 
 }
 
-const handlerStake = () => {
-    const num = parseEther(amount.value);
-    console.log('num', num)
-    storeConnect.stake(num)
+const handlerStake = async () => {
+    if (!storeUi.amountStake) {
+        return null
+    }
+    storeUi.changeContentModal('stake-ok')
+    storeUi.showModal()
+    storeUi.changeAmountStake(storeUi.amountStake)
+
 }
 
 const handlerMax = () => {
-    amount.value = balance.value
+    storeUi.amountStake = balance.value
 }
 
 </script>
 
 <template>
     <div class="metamask">
-        <div>
+        <div class="metamask-apy-tvl">
             <ComponentAPY />
             <ComponentTVL />
         </div>
-        <div>{{ amount }}</div>
-        <div>{{ storeConnect.allowance }}</div>
+        <!-- <div>{{ amount }}</div> -->
+        <!-- <div> {{ storeUi.amountStake }}</div> -->
         <div class="metamask-amount">
             <label for="amount">Enter amount</label>
-            <input type="text" id="amount" v-model="amount" :placeholder="`${balance} ${storeConnect.symbol}`" />
+            <input type="text" id="amount" v-model="storeUi.amountStake"
+                :placeholder="`${balance} ${storeConnect.symbol}`" />
             <div class="metamask-amount-max" @click="handlerMax">MAX</div>
             <div class="metamask-balance">
                 <div class="metamask-balance-text">Balance</div>
@@ -61,21 +64,13 @@ const handlerMax = () => {
             </div>
         </div>
 
-        <!-- <ButtonComponent v-if="storeUi.contentStake !== 'active-stake' && storeUi.content === 'connect-card'"
-            variant="btn-connect" @click="showEnableTransaction">Enable</ButtonComponent>
-
-        <ButtonComponent v-if="storeUi.contentStake === 'active-stake'" variant="btn-main btn-connect"
-            @click="handlerStake">Stake
-        </ButtonComponent> -->
-
-        <ButtonComponent v-if="!!storeConnect.allowance" variant="btn-connect" @click="showEnableTransaction">Enable
+        <ButtonComponent v-if="!storeConnect.allowance" variant="btn-connect" @click="showEnableTransaction">Enable
         </ButtonComponent>
 
-        <ButtonComponent v-if="storeConnect.allowance" variant="btn-main btn-connect" @click="handlerStake">Stake
+        <ButtonComponent v-if="storeConnect.allowance" variant="btn-main btn-connect" @click="handlerStake"
+            :class="storeUi.amountStake ? '' : 'btn-disabled'">Stake
         </ButtonComponent>
     </div>
-
-
 
 </template>
 
@@ -90,6 +85,13 @@ const handlerMax = () => {
     width: 621px;
     height: 370px;
     padding: 0 97px;
+
+    &-apy-tvl {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
 
     &-amount {
@@ -123,6 +125,10 @@ const handlerMax = () => {
     &-balance {
         display: flex;
         justify-content: space-between;
+    }
+
+    .btn-disabled {
+        opacity: 0.5;
     }
 }
 </style>

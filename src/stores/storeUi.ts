@@ -8,7 +8,8 @@ export const useUI = defineStore('uiStore', {
             isDisabled: false,
             content: 'not-connect',
             contentModal: '',
-            contentStake: ''
+            contentStake: '',
+            amountStake: ''
         }
     },
 
@@ -28,6 +29,9 @@ export const useUI = defineStore('uiStore', {
 
         changeContentStake(payload: string) {
             this.contentStake = payload
+        },
+        changeAmountStake(payload: string) {
+            this.amountStake = payload
         }
     },
 })
