@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useConnect } from '@/stores/storeConnect'
 import { useUI } from '@/stores/storeUi'
-// import { parseEther } from 'ethers/lib/utils';
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 
 import ButtonComponent from './base/ButtonComponent.vue'
 import ComponentAPY from './ComponentAPY.vue';

@@ -110,7 +110,7 @@ const approveStake = async () => {
                     this case.
                 </div>
                 <div class="connect-unstake-btns connect-enable-transaction-btns">
-                    <ButtonComponent variant='btn-mini'>Cancel</ButtonComponent>
+                    <ButtonComponent variant='btn-mini' @click="storeUi.showModal">Cancel</ButtonComponent>
                     <ButtonComponent variant='btn-mini' class="btn-mini-bcg" @click="unstake">Unstake
                     </ButtonComponent>
                 </div>
@@ -121,7 +121,7 @@ const approveStake = async () => {
                     earned while staking. Your stake stays active and continues to accumulate rewards.
                 </div>
                 <div class="connect-enable-transaction-btns connect-unstake-btns">
-                    <ButtonComponent variant='btn-mini'>Cancel</ButtonComponent>
+                    <ButtonComponent variant='btn-mini' @click="storeUi.showModal">Cancel</ButtonComponent>
                     <ButtonComponent variant='btn-mini' class="btn-mini-bcg" @click="handlerClaim">Claim
                     </ButtonComponent>
                 </div>
@@ -133,7 +133,7 @@ const approveStake = async () => {
                 <div class="connect-waitnig-confirmation-preloader" v-if="!isBtnShow">
                     <half-circle-spinner :animation-duration="1000" :size="60" color="#007CFF" />
                 </div>
-                <ButtonComponent variant='btn-mini' v-if="isBtnShow">Okay</ButtonComponent>
+                <ButtonComponent variant='btn-mini' v-if="isBtnShow" @click="storeUi.showModal">Okay</ButtonComponent>
             </div>
             <div v-if="storeUi.content === 'stake'" class="modal-content-stake">
                 <div class="modal-content-connect-title">Stake</div>
@@ -151,9 +151,15 @@ const approveStake = async () => {
                 <div class="modal-content-connect-subtitle">By pressing Comfirm you are staking {{ storeUi.amountStake
                 }} Coins.
                 </div>
-                <ButtonComponent variant='btn-mini' class="btn-mini-bcg btn-mini-bcg-color-white" @click="approveStake">
-                    Stake
-                </ButtonComponent>
+                <div class="connect-stake-btns connect-enable-transaction-btns">
+                    <ButtonComponent variant='btn-mini' @click="storeUi.showModal">Cancel</ButtonComponent>
+
+                    <ButtonComponent variant='btn-mini' class="btn-mini-bcg btn-mini-bcg-color-white"
+                        @click="approveStake">
+                        Stake
+                    </ButtonComponent>
+                </div>
+
 
             </div>
         </div>

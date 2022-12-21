@@ -15,7 +15,7 @@ const updateUSerStake = () => {
 }
 
 onMounted(() => {
-    setInterval(updateUSerStake, 3000)
+    setInterval(updateUSerStake, 1000)
 })
 
 onBeforeUnmount(() => {
