@@ -17,7 +17,7 @@ const showConnectWallet = async () => {
 
 <template>
     <div class="basic-content">
-        <div>
+        <div class="metamask-apy-tvl">
             <ComponentAPY />
             <ComponentTVL />
         </div>
@@ -40,5 +40,12 @@ const showConnectWallet = async () => {
     align-items: center;
     position: relative;
     justify-content: space-between;
+
+    .metamask-apy-tvl {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 </style>
