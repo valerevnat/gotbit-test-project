@@ -8,11 +8,10 @@ import ButtonComponent from './base/ButtonComponent.vue';
 
 const storeUi = useUI();
 const storeConnect = useConnect();
+
 const updateUSerStake = () => {
     storeConnect.getUserActiveStake();
     storeConnect.balanceOf();
-    console.log('chjvhjcv');
-
 }
 
 onMounted(() => {
@@ -62,7 +61,6 @@ const handlerShowClaim = () => {
                 </div>
             </div>
             <ButtonComponent variant='btn-connect-border' @click="handlerUnstake">Unstake</ButtonComponent>
-            <!-- <ButtonComponent variant='btn-connect-border' @click="() => storeConnect.mint()">Mint</ButtonComponent> -->
             <!-- <ButtonComponent variant='btn-connect-border' @click="() => storeConnect.mint()">Mint</ButtonComponent> -->
         </div>
     </div>

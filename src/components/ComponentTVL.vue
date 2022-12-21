@@ -4,7 +4,9 @@ import { useConnect } from '@/stores/storeConnect'
 import ToolTip from "./base/ToolTip.vue";
 
 const storeConnect = useConnect()
+
 const tooltip = ref<boolean>(false)
+
 const showTooltip = () => {
     tooltip.value = !tooltip.value
 }
@@ -24,7 +26,9 @@ const showTooltip = () => {
         </div>
         <div class="basic-content-tvl-tooltip">
             <ToolTip :tooltip="tooltip">
-                <div class="basic-content-tvl-help-text">Текст подсказка TVL</div>
+                <div class="basic-content-tvl-help-text">Total Value Locked (TVL) represents the dollar value of
+                    cryptocurrencies currently locked up on the staking smart contract.
+                </div>
             </ToolTip>
         </div>
     </div>

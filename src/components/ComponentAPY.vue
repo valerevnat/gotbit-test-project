@@ -25,8 +25,8 @@ const showTooltip = () => {
         <div class="basic-content-apy-tooltip">
             <ToolTip :tooltip="tooltip">
                 <div class="basic-content-apy-help-text">
-                    Текст с подсказкой Текст с подсказкой Текст с подсказкой Текст с
-                    подсказкой Текст с подсказкой
+                    Estimated APY represents the total amount of interest which can be earned over one year assuming
+                    current TVL remains the same.
                 </div>
             </ToolTip>
         </div>

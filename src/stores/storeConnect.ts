@@ -1,20 +1,28 @@
 import { defineStore } from 'pinia'
 import { BigNumber, providers, Contract, constants } from 'ethers'
 import abisToken from "../assets/abis/token.json";
+declare let window: any
+
+interface IUserStake {
+    amount: BigNumber,
+    earnd: BigNumber,
+    startTimestamp: BigNumber,
+    userRewardPerTokenPaid: BigNumber
+}
 
 export const useConnect = defineStore('connect', {
     state: () => {
         return {
-            connected: false,
-            balance: BigNumber.from(0),
+            connected: false as boolean,
+            balance: BigNumber.from(0) as BigNumber,
             signer: () => null as null | providers.JsonRpcSigner,
-            wallet: "",
+            wallet: "" as string,
             provider: () => null as null | providers.JsonRpcProvider,
-            symbol: "",
-            userStake: [],
-            apy: '',
-            tvl: '',
-            allowance: ''
+            symbol: "" as string,
+            userStake: [] as IUserStake[],
+            apy: '' as string,
+            tvl: '' as string,
+            allowance: '' as string
         }
     },
 

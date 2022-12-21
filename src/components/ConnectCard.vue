@@ -11,9 +11,6 @@ import ComponentTVL from './ComponentTVL.vue';
 const storeConnect = useConnect()
 const storeUi = useUI();
 
-const balance = ref()
-balance.value = +storeConnect.balance / Math.pow(10, 18)
-
 onMounted(() => {
     storeConnect.getAPY();
     storeConnect.getTVL();
@@ -35,7 +32,6 @@ const handlerStake = async () => {
     storeUi.changeContentModal('stake-ok')
     storeUi.showModal()
     storeUi.changeAmountStake(storeUi.amountStake)
-
 }
 
 const handlerMax = () => {

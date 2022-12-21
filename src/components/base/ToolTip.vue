@@ -5,11 +5,6 @@ const props = defineProps({
         default: false,
     },
 })
-// const emit = defineEmits(['showTooltip'])
-
-// const handelShowToltip = () => {
-//     emit('showTooltip')
-// }
 
 </script>
 

@@ -220,7 +220,6 @@ const approveStake = async () => {
                 color: #191A1B;
                 margin-bottom: 8px;
                 text-align: center;
-
             }
 
             &-subtitle {

@@ -4,12 +4,12 @@ import { defineStore } from 'pinia'
 export const useUI = defineStore('uiStore', {
     state: () => {
         return {
-            isShowModal: false,
-            isDisabled: false,
-            content: 'not-connect',
-            contentModal: '',
-            contentStake: '',
-            amountStake: ''
+            isShowModal: false as boolean,
+            isDisabled: false as boolean,
+            content: 'not-connect' as string,
+            contentModal: '' as string,
+            contentStake: '' as string,
+            amountStake: '' as string
         }
     },
 

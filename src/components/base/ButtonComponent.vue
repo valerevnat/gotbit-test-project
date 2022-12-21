@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 
-const props = defineProps({
-    variant: {
-        type: String,
-        default: 'btn-main',
-    },
-})
+interface IProps {
+    variant: string | ''
+}
+
+const props = defineProps<IProps>()
 
 </script>
 
