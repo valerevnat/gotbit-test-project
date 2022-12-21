@@ -219,6 +219,8 @@ const approveStake = async () => {
                 font-size: 32px;
                 color: #191A1B;
                 margin-bottom: 8px;
+                text-align: center;
+
             }
 
             &-subtitle {
@@ -226,6 +228,8 @@ const approveStake = async () => {
                 font-size: 16px;
                 color: #58595C;
                 margin-bottom: 32px;
+                text-align: center;
+
             }
 
             .btn-mini-bcg-color-white {

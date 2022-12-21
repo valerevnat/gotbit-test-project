@@ -12,7 +12,7 @@ const storeConnect = useConnect()
 const storeUi = useUI();
 
 const balance = ref()
-balance.value = +storeConnect.balance / 1000000000000000000
+balance.value = +storeConnect.balance / Math.pow(10, 18)
 
 onMounted(() => {
     storeConnect.getAPY();
@@ -39,7 +39,7 @@ const handlerStake = async () => {
 }
 
 const handlerMax = () => {
-    storeUi.amountStake = balance.value
+    storeUi.amountStake = `${+storeConnect.balance / Math.pow(10, 18)}`
 }
 
 </script>
@@ -55,11 +55,13 @@ const handlerMax = () => {
         <div class="metamask-amount">
             <label for="amount">Enter amount</label>
             <input type="text" id="amount" v-model="storeUi.amountStake"
-                :placeholder="`${balance} ${storeConnect.symbol}`" />
+                :placeholder="`${+storeConnect.balance / Math.pow(10, 18)} ${storeConnect.symbol}`" />
             <div class="metamask-amount-max" @click="handlerMax">MAX</div>
             <div class="metamask-balance">
                 <div class="metamask-balance-text">Balance</div>
-                <div class="metamask-balance-amount">{{ balance }} {{ storeConnect.symbol }}
+                <div class="metamask-balance-amount">{{ +storeConnect.balance / Math.pow(10, 18) }} {{
+                        storeConnect.symbol
+                }}
                 </div>
             </div>
         </div>

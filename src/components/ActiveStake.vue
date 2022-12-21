@@ -10,6 +10,7 @@ const storeUi = useUI();
 const storeConnect = useConnect();
 const updateUSerStake = () => {
     storeConnect.getUserActiveStake();
+    storeConnect.balanceOf();
     console.log('chjvhjcv');
 
 }
