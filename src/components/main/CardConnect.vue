@@ -1,26 +1,24 @@
 <script setup lang="ts">
-import { useConnect } from '@/stores/storeConnect'
+import { useToken } from '@/stores/storeToken';
+import { useStaking } from '@/stores/storeStaking'
 import { useUI } from '@/stores/storeUi'
 import { onMounted } from 'vue';
 
-import ButtonComponent from './base/ButtonComponent.vue'
-import ComponentAPY from './ComponentAPY.vue';
-import ComponentTVL from './ComponentTVL.vue';
+import ButtonComponent from '@/components/base/ButtonComponent.vue'
 
-const storeConnect = useConnect()
 const storeUi = useUI();
+const storeToken = useToken();
+const storeStaking = useStaking();
 
 onMounted(() => {
-    storeConnect.getAPY();
-    storeConnect.getTVL();
-    storeConnect.getAllowance();
-    storeConnect.getUserActiveStake()
+    storeStaking.getAPY();
+    storeStaking.getTVL();
+    storeToken.getAllowance();
+    storeStaking.getUserActiveStake()
 })
 
 const showEnableTransaction = () => {
-    storeUi.showModal()
-    storeUi.changeContentModal('connect-enable-transaction')
-    console.log('click');
+    storeUi.changePopupEnableTransaction()
 
 }
 
@@ -28,43 +26,36 @@ const handlerStake = async () => {
     if (!storeUi.amountStake) {
         return null
     }
-    storeUi.changeContentModal('stake-ok')
-    storeUi.showModal()
     storeUi.changeAmountStake(storeUi.amountStake)
+    storeUi.changePopupStake()
 }
 
 const handlerMax = () => {
-    storeUi.amountStake = `${+storeConnect.balance / Math.pow(10, 18)}`
+    storeUi.amountStake = `${+storeToken.balance / Math.pow(10, 18)}`
 }
 
 </script>
 
 <template>
     <div class="metamask">
-        <div class="metamask-apy-tvl">
-            <ComponentAPY />
-            <ComponentTVL />
-        </div>
-        <!-- <div>{{ amount }}</div> -->
-        <!-- <div> {{ storeUi.amountStake }}</div> -->
         <div class="metamask-amount">
             <label for="amount">Enter amount</label>
             <input type="text" id="amount" v-model="storeUi.amountStake"
-                :placeholder="`${+storeConnect.balance / Math.pow(10, 18)} ${storeConnect.symbol}`" />
+                :placeholder="`${+storeToken.balance / Math.pow(10, 18)} ${storeToken.symbol}`" />
             <div class="metamask-amount-max" @click="handlerMax">MAX</div>
             <div class="metamask-balance">
                 <div class="metamask-balance-text">Balance</div>
-                <div class="metamask-balance-amount">{{ +storeConnect.balance / Math.pow(10, 18) }} {{
-                        storeConnect.symbol
+                <div class="metamask-balance-amount">{{ +storeToken.balance / Math.pow(10, 18) }} {{
+                        storeToken.symbol
                 }}
                 </div>
             </div>
         </div>
 
-        <ButtonComponent v-if="!storeConnect.allowance" variant="btn-connect" @click="showEnableTransaction">Enable
+        <ButtonComponent v-if="!storeToken.allowance" variant="btn-connect" @click="showEnableTransaction">Enable
         </ButtonComponent>
 
-        <ButtonComponent v-if="storeConnect.allowance" variant="btn-main btn-connect" @click="handlerStake"
+        <ButtonComponent v-if="storeToken.allowance" variant="btn-main btn-connect" @click="handlerStake"
             :class="storeUi.amountStake ? '' : 'btn-disabled'">Stake
         </ButtonComponent>
     </div>
@@ -72,7 +63,7 @@ const handlerMax = () => {
 </template>
 
 <style scoped lang="scss">
-@import '../assets/styles/variables.scss';
+@import '@/assets/styles/variables.scss';
 
 .metamask {
     display: flex;

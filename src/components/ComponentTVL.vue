@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useConnect } from '@/stores/storeConnect'
+import { useStaking } from '@/stores/storeStaking'
+
 import ToolTip from "./base/ToolTip.vue";
 
-const storeConnect = useConnect()
+const storeStaking = useStaking();
 
 const tooltip = ref<boolean>(false)
 
@@ -17,7 +18,7 @@ const showTooltip = () => {
     <div class="basic-content-tvl">
         <div class="basic-content-tvl-text">
             <div class="basic-content-tvl-text-left">TVL</div>
-            <div>{{ (+storeConnect.tvl / Math.pow(10, 18)).toFixed(3) }} $</div>
+            <div>{{ (+storeStaking.tvl / Math.pow(10, 18)).toFixed(3) }} $</div>
         </div>
         <div class="basic-content-tvl-help">
             <div class="basic-content-tvl-help-btn" @click="showTooltip">

@@ -8,7 +8,6 @@ const storeUi = useUI();
 
 const showConnectWallet = () => {
     storeUi.showModal()
-    storeUi.changeContentModal('connect-card-modal')
 }
 
 </script>

@@ -4,12 +4,20 @@ import { defineStore } from 'pinia'
 export const useUI = defineStore('uiStore', {
     state: () => {
         return {
-            isShowModal: false as boolean,
-            isDisabled: false as boolean,
-            content: 'not-connect' as string,
-            contentModal: '' as string,
-            contentStake: '' as string,
-            amountStake: '' as string
+            isShowModal: false,
+            isDisabled: false,
+            content: 'not-connect',
+            contentStake: '',
+            amountStake: '',
+            globalLoading: false,
+
+            isShowPopupConnectWallet: false,
+            isShowPopupEnableTransaction: false,
+            isShowPopupWaiting: false,
+            isShowPopupUnstake: false,
+            isShowPopupClaim: false,
+            isShowPopupStake: false,
+            isloadingForWaiting: false,
         }
     },
 
@@ -23,15 +31,46 @@ export const useUI = defineStore('uiStore', {
             this.content = payload
         },
 
-        changeContentModal(payload: string) {
-            this.contentModal = payload
-        },
-
         changeContentStake(payload: string) {
             this.contentStake = payload
         },
         changeAmountStake(payload: string) {
             this.amountStake = payload
+        },
+
+        changePopupConnectWallet() {
+            this.isShowPopupConnectWallet = !this.isShowPopupConnectWallet
+        },
+
+        changePopupEnableTransaction() {
+            this.isShowPopupEnableTransaction = !this.isShowPopupEnableTransaction
+        },
+
+        changePopupStake() {
+            this.isShowPopupStake = !this.isShowPopupStake
+        },
+
+        changePopupClaim() {
+            this.isShowPopupClaim = !this.isShowPopupClaim
+        },
+
+        changePopupUnstake() {
+            this.isShowPopupUnstake = !this.isShowPopupUnstake
+        },
+        changePopupWaiting() {
+            this.isShowPopupWaiting = !this.isShowPopupWaiting
+        },
+        changeLoadingForWaiting() {
+            this.isloadingForWaiting = !this.isloadingForWaiting
+        },
+
+        closeModal() {
+            this.isShowPopupConnectWallet = false;
+            this.isShowPopupEnableTransaction = false;
+            this.isShowPopupWaiting = false;
+            this.isShowPopupUnstake = false;
+            this.isShowPopupClaim = false;
+            this.isShowPopupStake = false;
         }
     },
 })

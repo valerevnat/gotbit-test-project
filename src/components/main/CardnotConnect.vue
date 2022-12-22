@@ -1,29 +1,20 @@
 <script setup lang="ts">
 
 import { useUI } from '@/stores/storeUi'
-
-import ButtonComponent from "./base/ButtonComponent.vue";
-import ComponentAPY from './ComponentAPY.vue';
-import ComponentTVL from './ComponentTVL.vue';
+import ButtonComponent from "../base/ButtonComponent.vue";
 
 const storeUi = useUI();
 
 const showConnectWallet = async () => {
-    storeUi.showModal()
-    storeUi.changeContentModal('connect-card-modal')
+    storeUi.changePopupConnectWallet()
 }
 
 </script>
 
 <template>
     <div class="basic-content">
-        <div class="metamask-apy-tvl">
-            <ComponentAPY />
-            <ComponentTVL />
-        </div>
-
         <div class="basic-content-img">
-            <img src="../assets/img/basic-main-screen.png" alt="help" />
+            <img src="@/assets/img/basic-main-screen.png" alt="help" />
         </div>
         <div class="basic-content-btn">
             <ButtonComponent variant='btn-main' @click="showConnectWallet"> Connect wallet </ButtonComponent>
@@ -40,12 +31,10 @@ const showConnectWallet = async () => {
     align-items: center;
     position: relative;
     justify-content: space-between;
+    margin: 70px 0 40px 0;
 
-    .metamask-apy-tvl {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    &-img {
+        margin-bottom: 70px;
     }
 }
 </style>

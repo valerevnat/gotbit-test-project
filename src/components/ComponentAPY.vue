@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useConnect } from '@/stores/storeConnect'
+import { useStaking } from '@/stores/storeStaking'
 import ToolTip from "./base/ToolTip.vue";
 
-const storeConnect = useConnect()
+const storeStaking = useStaking();
 const tooltip = ref<boolean>(false)
 
 const showTooltip = () => {
     tooltip.value = !tooltip.value
-    console.log('tooltip', tooltip.value);
-
 }
 </script>
 
 
 <template>
     <div class="basic-content-apy">
-        <div class="basic-content-apy-text">{{ +storeConnect.apy / 10000 }}% APY</div>
+        <div class="basic-content-apy-text">{{ +storeStaking.apy / 10000 }}% APY</div>
         <div class="basic-content-apy-help">
             <div class="basic-content-apy-help-btn" @click="showTooltip">
                 <img src="../assets/img/help-active.svg" alt="help" />

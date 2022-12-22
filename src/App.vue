@@ -1,18 +1,18 @@
 <script setup lang="ts">
 
-import ContainerMain from './components/ContainerMain.vue';
-import NavigationMenu from './components/NavigationMenu.vue';
+import Layout from '@/views/Layout.vue';
+import ContainerMain from '@/components/ContainerMain.vue';
+
 
 </script>
 
 <template>
-  <NavigationMenu />
-  <ContainerMain />
-  <!-- <button @click="storeConnect.getAPY()">НАЖАТЬ getAPY</button>
-  <button @click="storeConnect.getTVL()">НАЖАТЬ getTVL</button> -->
-
+  <Layout>
+    <ContainerMain />
+  </Layout>
 </template>
 
 <style scoped>
 
 </style>
+

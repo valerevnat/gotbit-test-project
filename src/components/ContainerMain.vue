@@ -1,15 +1,25 @@
 <script setup lang="ts">
 
-import { useConnect } from '@/stores/storeConnect'
+import { useToken } from '@/stores/storeToken';
 import { useUI } from '@/stores/storeUi'
 
-import ModalWindow from './base/ModalWindow.vue';
-import StartContent from './StartContent.vue';
-import ConnectCard from './ConnectCard.vue';
-import ActiveStake from './ActiveStake.vue';
+import ComponentAPY from './ComponentAPY.vue';
+import ComponentTVL from './ComponentTVL.vue';
+
+import CardnotConnect from '@/components/main/CardnotConnect.vue'
+import CardConnect from '@/components/main/CardConnect.vue'
+import ActiveStake from '@/components/main/ActiveStake.vue';
+import PopupConnectWallet from '@/components/popups/PopupConnectWallet.vue';
+import PopupStake from '@/components/popups/PopupStake.vue'
+import PopupClaim from '@/components/popups/PopupClaim.vue'
+import PopupUnstake from '@/components/popups/PopupUnstake.vue';
+import PopupWaiting from '@/components/popups/PopupWaiting.vue';
+
+import Loader from '@/components/base/Loader.vue'
+import PopupEnableTransaction from './popups/PopupEnableTransaction.vue';
 
 
-const storeConnect = useConnect()
+const storeToken = useToken();
 const storeUi = useUI();
 
 
@@ -22,15 +32,27 @@ const storeUi = useUI();
             <div class="title-right">Staking</div>
         </div>
         <div class="container-content">
-            <StartContent v-if="storeUi.content === 'not-connect'" />
-            <ConnectCard v-if="storeUi.content === 'connect-card'" />
-            <ModalWindow v-if="storeUi.isShowModal"></ModalWindow>
+            <div class="container-content-apy-tvl">
+                <ComponentAPY />
+                <ComponentTVL />
+            </div>
+            <CardnotConnect v-if="storeUi.content === 'not-connect'" />
+            <CardConnect v-if="storeUi.content === 'connect'" />
         </div>
         <div>
-            <ActiveStake v-if="storeConnect.allowance" />
-
+            <ActiveStake v-if="storeToken.allowance" />
         </div>
     </div>
+    <PopupConnectWallet v-if="storeUi.isShowPopupConnectWallet" />
+    <PopupEnableTransaction v-if="storeUi.isShowPopupEnableTransaction" />
+    <PopupStake v-if="storeUi.isShowPopupStake" />
+    <PopupClaim v-if="storeUi.isShowPopupClaim" />
+    <PopupUnstake v-if="storeUi.isShowPopupUnstake" />
+    <PopupWaiting v-if="storeUi.isShowPopupWaiting" contentValue="tokens" />
+    <PopupWaiting v-if="storeUi.isShowPopupWaiting && storeUi.isShowPopupEnableTransaction"
+        contentValue="confirmation" />
+
+    <Loader v-if="storeUi.globalLoading" />
 </template>
 
 <style scoped lang="scss">
@@ -67,6 +89,13 @@ const storeUi = useUI();
         background: #FFFFFF;
         border-radius: 24px;
         padding: 40px 0 40px 0;
+
+        &-apy-tvl {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
     }
 
