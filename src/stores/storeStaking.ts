@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { BigNumber, Contract } from 'ethers'
-import abis from "../assets/abis/abis.json";
+import abisToken from "@/assets/abisToken/abisToken.json";
 import { useConnect } from './storeConnect';
 import { useUI } from './storeUi';
 
@@ -27,8 +27,9 @@ export const useStaking = defineStore('staking', {
         async getUserActiveStake() {
             try {
                 const contractStaking = new Contract(
-                    "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abis.staking,
+                    // "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                    abisToken.staking,
+                    abisToken.abiStaking,
                     this.connect.provider()!
                 );
 
@@ -42,8 +43,9 @@ export const useStaking = defineStore('staking', {
         async getAPY() {
             try {
                 const contractStaking = new Contract(
-                    "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abis.staking,
+                    // "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                    abisToken.staking,
+                    abisToken.abiStaking,
                     this.connect.provider()!
                 );
 
@@ -57,8 +59,9 @@ export const useStaking = defineStore('staking', {
         async getTVL() {
             try {
                 const contractStaking = new Contract(
-                    "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abis.staking,
+                    // "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                    abisToken.staking,
+                    abisToken.abiStaking,
                     this.connect.provider()!
                 );
 
@@ -72,8 +75,9 @@ export const useStaking = defineStore('staking', {
         async withdraw() {
             try {
                 const contractStaking = new Contract(
-                    "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abis.staking,
+                    // "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                    abisToken.staking,
+                    abisToken.abiStaking,
                     this.connect.provider()!
                 );
 
@@ -89,8 +93,9 @@ export const useStaking = defineStore('staking', {
         async claim() {
             try {
                 const contractStaking = new Contract(
-                    "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abis.staking,
+                    // "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                    abisToken.staking,
+                    abisToken.abiStaking,
                     this.connect.provider()!
                 );
 
@@ -108,8 +113,9 @@ export const useStaking = defineStore('staking', {
             ui.globalLoading = true
             try {
                 const contractStaking = new Contract(
-                    "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
-                    abis.staking,
+                    // "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648",
+                    abisToken.staking,
+                    abisToken.abiStaking,
                     this.connect.provider()!
                 );
 

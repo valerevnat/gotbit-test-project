@@ -1,5 +1,5 @@
 {
-    "token": [
+    "abiToken": [
         {
             "inputs": [
                 {
@@ -305,7 +305,7 @@
             "type": "function"
         }
     ],
-    "staking": [
+    "abiStaking": [
         {
             "inputs": [
                 {
@@ -795,5 +795,7 @@
             "stateMutability": "nonpayable",
             "type": "function"
         }
-    ]
+    ],
+    "token": "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+    "staking": "0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648"
 }

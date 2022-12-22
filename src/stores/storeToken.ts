@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { BigNumber, Contract, constants, ethers } from 'ethers'
-import abis from "../assets/abis/abis.json";
+import { BigNumber, Contract, constants } from 'ethers'
+import abisToken from "@/assets/abisToken/abisToken.json";
 import { useConnect } from './storeConnect';
 
 export const useToken = defineStore('token', {
@@ -20,8 +20,9 @@ export const useToken = defineStore('token', {
         async balanceOf() {
             try {
                 const tokenContract = new Contract(
-                    "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abis.token,
+                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+                    abisToken.token,
+                    abisToken.abiToken,
                     this.connect.provider()!
                 );
 
@@ -35,8 +36,9 @@ export const useToken = defineStore('token', {
         async getSymbol() {
             try {
                 const tokenContract = new Contract(
-                    "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abis.token,
+                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+                    abisToken.token,
+                    abisToken.abiToken,
                     this.connect.provider()!
                 );
 
@@ -49,11 +51,12 @@ export const useToken = defineStore('token', {
         async getAllowance() {
             try {
                 const tokenContract = new Contract(
-                    "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abis.token,
+                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+                    abisToken.token,
+                    abisToken.abiToken,
                     this.connect.provider()!
                 );
-                this.allowance = await tokenContract.allowance(this.connect.wallet, '0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648')
+                this.allowance = await tokenContract.allowance(this.connect.wallet, abisToken.staking)
             } catch (error) {
                 console.log('Error allowance', error);
             }
@@ -63,12 +66,19 @@ export const useToken = defineStore('token', {
         // async getAllowance() {
         //     try {
         //         const tokenContract = new Contract(
-        //             "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-        //             abis.token,
+        // //"0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+        //             abisToken.token,
+        //             abisToken.abiToken,
         //             this.connect.provider()!
         //         );
         //         const allowance = await tokenContract.allowance(this.connect.wallet, '0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648')
         //         this.allowance = allowance > ethers.constants.MaxUint256.div(2)
+        //         console.log('allowance', allowance);
+        //         console.log('ethers.constants.MaxUint256.div(2)', constants.MaxUint256.div(2));
+        //         console.log('сравнение', ethers.constants.MaxUint256.div(2) > allowance);
+
+        //         console.log('this.allowance', this.allowance);
+
         //     } catch (error) {
         //         console.log('Error allowance', error);
         //     }
@@ -78,8 +88,9 @@ export const useToken = defineStore('token', {
         async mint() {
             try {
                 const tokenContract = new Contract(
-                    "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abis.token,
+                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+                    abisToken.token,
+                    abisToken.abiToken,
                     this.connect.provider()!
                 );
 
@@ -95,14 +106,15 @@ export const useToken = defineStore('token', {
         async approve() {
             try {
                 const tokenContract = new Contract(
-                    "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abis.token,
+                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
+                    abisToken.token,
+                    abisToken.abiToken,
                     this.connect.provider()!
                 );
 
                 const tx = await tokenContract
                     .connect(this.connect.signer()!)
-                    .approve("0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648", constants.MaxUint256);
+                    .approve(abisToken.staking, constants.MaxUint256);
             } catch (error) {
                 console.log('Error approve', error);
             }

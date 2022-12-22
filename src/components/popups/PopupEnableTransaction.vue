@@ -16,6 +16,7 @@ const confirmTransaction = async () => {
     storeUi.changeLoadingForWaiting()
     await storeToken.approve()
     await storeStaking.getUserActiveStake()
+    await storeToken.getAllowance()
     // storeUi.changeLoadingForWaiting()
 }
 
