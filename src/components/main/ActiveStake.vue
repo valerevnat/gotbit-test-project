@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted } from 'vue';
+import { onBeforeUnmount, onMounted, onRenderTriggered, onUpdated } from 'vue';
 
 import { useUI } from '@/stores/storeUi'
 import { useToken } from '@/stores/storeToken';
 import { useStaking } from '@/stores/storeStaking'
 
-import ButtonComponent from '../base/ButtonComponent.vue';
+import ButtonComponent from '@/components/base/ButtonComponent.vue';
 
 const storeUi = useUI();
 const storeToken = useToken();
@@ -16,20 +16,14 @@ const updateUSerStake = () => {
     storeToken.balanceOf();
 }
 
-
 onMounted(() => {
     setInterval(updateUSerStake, 1000)
 })
 
-onBeforeUnmount(() => {
-    clearInterval(updateUSerStake)
-})
-
-
 </script>
 
 <template>
-    <div class="active-stake" v-if="storeToken.allowance">
+    <div class="active-stake">
         <div class="active-stake-title">Active Stake</div>
         <div class="active-stake-info">
             <div class="active-stake-info-main">

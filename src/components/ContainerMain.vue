@@ -36,7 +36,7 @@ const storeUi = useUI();
             <CardConnect v-if="storeUi.content === 'connect'" />
         </div>
         <div>
-            <ActiveStake />
+            <ActiveStake v-if="storeToken.allowance" />
         </div>
     </div>
     <PopupConnectWallet />
