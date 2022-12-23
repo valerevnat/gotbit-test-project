@@ -9,13 +9,9 @@ const storeUi = useUI();
 const storeStaking = useStaking();
 
 const handlerClaim = async () => {
-    storeUi.changePopupWaiting()
-    storeUi.changeLoadingForWaiting()
     await storeStaking.claim()
-    storeUi.changeLoadingForWaiting()
+    storeUi.changePopupClaim()
 }
-
-// сделать через v-model props, из container убрать v-if
 
 </script>
 
@@ -27,8 +23,8 @@ const handlerClaim = async () => {
                 earned while staking. Your stake stays active and continues to accumulate rewards.
             </div>
             <div class="modal-content-btns">
-                <ButtonComponent variant='btn-mini' @click="storeUi.closeModal">Cancel</ButtonComponent>
-                <ButtonComponent variant='btn-mini' class="btn-mini-bcg" @click="handlerClaim">Claim
+                <ButtonComponent variant='btn-mini  btn-popup' @click="storeUi.closeModal">Cancel</ButtonComponent>
+                <ButtonComponent variant='btn-mini  btn-popup' class="btn-mini-bcg" @click="handlerClaim">Claim
                 </ButtonComponent>
             </div>
         </div>

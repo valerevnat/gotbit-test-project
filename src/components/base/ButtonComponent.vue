@@ -71,4 +71,9 @@ const props = defineProps<IProps>()
     background-color: $main-color;
     color: #FFFFFF;
 }
+
+.btn-popup {
+    width: 48%;
+    height: 100%;
+}
 </style>

@@ -42,8 +42,8 @@ const storeUi = useUI();
         border: 1px solid #f3f3f5;
         box-shadow: 0px 32px 64px rgba(36, 37, 38, 0.12);
         border-radius: 16px;
-        max-width: 560px;
-        max-height: 252px;
+        width: 560px;
+        min-height: 252px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -72,6 +72,7 @@ const storeUi = useUI();
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
 
         &-close {
@@ -81,10 +82,16 @@ const storeUi = useUI();
             cursor: pointer;
         }
 
-        &-btns {
-            width: 70%;
+        &-btns,
+        &-btns-center {
+            width: 100%;
+            height: 52px;
             display: flex;
             justify-content: space-between;
+        }
+
+        &-btns-center {
+            justify-content: center;
         }
 
     }

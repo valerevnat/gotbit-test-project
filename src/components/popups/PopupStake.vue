@@ -13,14 +13,14 @@ const storeToken = useToken();
 const storeStaking = useStaking();
 
 
-const approveStake = async () => {
+const stake = async () => {
     // parseUnits("1.004", 18)
     const decimals = await storeToken.getDecimals()
     const num = parseUnits(storeUi.amountStake, decimals);
     await storeStaking.stake(num)
     await storeToken.balanceOf()
     storeUi.amountStake = ''
-
+    storeUi.changePopupStake()
 }
 
 </script>
@@ -32,8 +32,8 @@ const approveStake = async () => {
             <div class="modal-content-subtitle">By pressing Comfirm you are staking {{ storeUi.amountStake }} Coins.
             </div>
             <div class="modal-content-btns">
-                <ButtonComponent variant='btn-mini' @click="storeUi.closeModal()">Cancel</ButtonComponent>
-                <ButtonComponent variant='btn-mini' class="btn-mini-bcg" @click="approveStake">Confirm
+                <ButtonComponent variant='btn-mini btn-popup' @click="storeUi.closeModal()">Cancel</ButtonComponent>
+                <ButtonComponent variant='btn-mini btn-popup' class="btn-mini-bcg" @click="stake">Confirm
                 </ButtonComponent>
             </div>
         </div>

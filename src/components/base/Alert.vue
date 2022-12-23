@@ -22,18 +22,29 @@ const storeUi = useUI();
 <template>
     <Modal v-model="storeUi.alert.visible">
         <div class="modal-content-propup">
-            <div class="modal-content-title">{{ props.header }}</div>
+            <div v-if="props.status !== 'error'" class="modal-content-title">{{ props.header }}</div>
+            <div v-if="props.status === 'error'" class="title">
+                <div class="title-img"><img src="@/assets/img/error-icon.png" alt="Error"></div>
+                <div class="modal-content-title error">{{
+                        props.header
+                }}</div>
+            </div>
+
             <div class="modal-content-subtitle">{{ props.description }}</div>
 
-            <!-- loader -->
             <div class="modal-content-preloader" v-if="props.status === 'loading'">
                 <half-circle-spinner :animation-duration="1000" :size="60" color="#007CFF" />
             </div>
-            <ButtonComponent variant='btn-mini' v-if="props.status === 'success'"
-                @click="storeUi.alert.visible = false">Ok
-            </ButtonComponent>
-            <ButtonComponent variant='btn-mini' v-if="props.status === 'error'">Error
-            </ButtonComponent>
+            <div class="modal-content-btns-center">
+                <ButtonComponent variant='btn-mini' v-if="props.status === 'success'"
+                    @click="storeUi.alert.visible = false">Ok
+                </ButtonComponent>
+
+                <ButtonComponent variant='btn-mini btn-popup btn-mini-bcg' v-if="props.status === 'error'"
+                    @click="storeUi.closeModal">Okay
+                </ButtonComponent>
+            </div>
+
         </div>
     </Modal>
 
@@ -41,4 +52,19 @@ const storeUi = useUI();
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
+
+.error {
+    color: #EE5A51;
+}
+
+.title {
+    transform: translateX(25%);
+    position: relative;
+
+    &-img {
+        position: absolute;
+        left: -80%;
+        bottom: 0;
+    }
+}
 </style>

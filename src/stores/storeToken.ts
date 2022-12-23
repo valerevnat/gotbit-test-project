@@ -27,7 +27,6 @@ export const useToken = defineStore('token', {
                 );
 
                 this.balance = await tokenContract.balanceOf(this.connect.wallet);
-                console.log(this.balance.toString());
             } catch (error) {
                 console.log('Error balanceOf', error);
             }
@@ -41,7 +40,6 @@ export const useToken = defineStore('token', {
                 );
 
                 this.decimals = await tokenContract.decimals();
-                console.log(this.decimals.toString());
             } catch (error) {
                 console.log('Error decimals', error);
             }
@@ -70,9 +68,6 @@ export const useToken = defineStore('token', {
                 );
                 const allowance = await tokenContract.allowance(this.connect.wallet, contracts.staking[0].address)
                 this.allowance = allowance.gte(ethers.constants.MaxUint256.div(2))
-                console.log('сравнение', allowance.gte(ethers.constants.MaxUint256.div(2)));
-                console.log('this.allowance', this.allowance);
-
             } catch (error) {
                 console.log('Error allowance', error);
             }

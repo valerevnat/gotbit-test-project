@@ -27,8 +27,8 @@ const confirmTransaction = async () => {
             <div class="modal-content-subtitle">By pressing Confirm you allow the staking contract to
                 transfer tokens from your wallet address</div>
             <div class="modal-content-btns">
-                <ButtonComponent variant='btn-mini' @click="storeUi.closeModal">Cancel</ButtonComponent>
-                <ButtonComponent variant='btn-mini' class="btn-mini-bcg" @click="confirmTransaction">Confirm
+                <ButtonComponent variant='btn-mini btn-popup' @click="storeUi.closeModal">Cancel</ButtonComponent>
+                <ButtonComponent variant='btn-mini btn-popup' class="btn-mini-bcg" @click="confirmTransaction">Confirm
                 </ButtonComponent>
             </div>
         </div>

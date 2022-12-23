@@ -6,9 +6,6 @@ import ButtonComponent from './base/ButtonComponent.vue'
 const storeUser = useUser()
 const storeUi = useUI();
 
-const showConnectWallet = () => {
-    storeUi.showModal()
-}
 
 </script>
 
@@ -18,7 +15,7 @@ const showConnectWallet = () => {
             <div class="navbar-logo-circle"></div>
             <div class="navbar-logo-title">staking PLATFORM</div>
         </div>
-        <ButtonComponent variant="btn-mini" @click="showConnectWallet"> {{
+        <ButtonComponent variant="btn-mini" @click="storeUi.changePopupConnectWallet"> {{
                 storeUser.wallet ?
         `${storeUser.wallet.slice(0, 10)}...` :
         'Connect wallet'

@@ -4,7 +4,7 @@ import contracts from "@/assets/contracts/contracts.json";
 import { useUser } from '@/stores/storeUser';
 import { useUI } from './storeUi';
 
-interface IUserStake {
+export interface UserStake {
     amount: BigNumber,
     earnd: BigNumber,
     startTimestamp: BigNumber,
@@ -15,7 +15,7 @@ export const useStaking = defineStore('staking', {
     state: () => {
         const connect = useUser()
         return {
-            userStake: [] as IUserStake[],
+            userStake: [] as UserStake[],
             apy: '',
             tvl: '',
             connect
@@ -30,7 +30,6 @@ export const useStaking = defineStore('staking', {
                     contracts.staking[0].abi,
                     this.connect.provider()!
                 );
-
                 this.userStake = await contractStaking.getUserStake(this.connect.wallet)
             } catch (error) {
                 console.log('Error userStake', error);
@@ -46,8 +45,6 @@ export const useStaking = defineStore('staking', {
                 );
 
                 this.apy = await contractStaking.getAPY()
-                console.log('apy', this.apy);
-
             } catch (error) {
                 console.log('Error APY', error);
             }
@@ -111,8 +108,6 @@ export const useStaking = defineStore('staking', {
 
         },
 
-        // функция decimels
-
         async stake(amount: BigNumber) {
             const ui = useUI()
             ui.createAlert('loading', 'Waiting for your tokens', 'It will take some time for the transaction to be completed.')
@@ -132,8 +127,6 @@ export const useStaking = defineStore('staking', {
                 console.log('Error stake', error);
                 ui.createAlert('error', 'Error', 'We couldn’t proceed your stake. Please try again!')
             }
-
-
         },
 
     },

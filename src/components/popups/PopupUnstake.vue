@@ -9,10 +9,8 @@ const storeUi = useUI();
 const storeStaking = useStaking();
 
 const unstake = async () => {
-    storeUi.changePopupWaiting()
-    storeUi.changeLoadingForWaiting()
     await storeStaking.withdraw()
-    storeUi.changeLoadingForWaiting()
+    storeUi.changePopupUnstake()
 }
 
 
@@ -26,8 +24,8 @@ const unstake = async () => {
                 you both staked and earned. Your current stake stops accumulating rewards in this case.
             </div>
             <div class="modal-content-btns">
-                <ButtonComponent variant='btn-mini'>Cancel</ButtonComponent>
-                <ButtonComponent variant='btn-mini' class="btn-mini-bcg" @click="unstake">Unstake
+                <ButtonComponent variant='btn-mini btn-popup' @click="storeUi.closeModal">Cancel</ButtonComponent>
+                <ButtonComponent variant='btn-mini btn-popup' class="btn-mini-bcg" @click="unstake">Unstake
                 </ButtonComponent>
             </div>
         </div>

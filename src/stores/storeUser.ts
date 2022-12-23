@@ -2,8 +2,6 @@ import { defineStore } from 'pinia'
 import { providers } from 'ethers'
 declare let window: any
 
-//storeUser
-
 export const useUser = defineStore('user', {
     state: () => {
         return {
