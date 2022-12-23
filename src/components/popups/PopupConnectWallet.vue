@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 import { useUI } from '@/stores/storeUi'
-import { useConnect } from '@/stores/storeConnect'
+import { useUser } from '@/stores/storeUser'
 import { useToken } from '@/stores/storeToken';
 
 import ButtonComponent from '@/components/base/ButtonComponent.vue'
 import Modal from '@/components/base/Modal.vue'
 
 const storeUi = useUI();
-const storeConnect = useConnect();
+const storeUser = useUser();
 const storeToken = useToken();
 
 const showConnectCard = async () => {
-    await storeConnect.connectMetamask()
+    await storeUser.connectMetamask()
     await storeToken.getAllowance()
     await storeToken.balanceOf()
     await storeToken.getSymbol()
@@ -21,7 +21,7 @@ const showConnectCard = async () => {
 </script>
 
 <template>
-    <Modal>
+    <Modal v-model="storeUi.isShowPopupConnectWallet">
         <div class="modal-content-propup">
             <div class="modal-content-title">Connect wallet</div>
             <div class="modal-content-subtitle">To perform actions on this page you need to connect your

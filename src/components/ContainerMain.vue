@@ -3,9 +3,8 @@
 import { useToken } from '@/stores/storeToken';
 import { useUI } from '@/stores/storeUi'
 
-import ComponentAPY from './ComponentAPY.vue';
-import ComponentTVL from './ComponentTVL.vue';
-
+import ComponentAPY from '@/components/ComponentAPY.vue';
+import ComponentTVL from '@/components/ComponentTVL.vue';
 import CardnotConnect from '@/components/main/CardnotConnect.vue'
 import CardConnect from '@/components/main/CardConnect.vue'
 import ActiveStake from '@/components/main/ActiveStake.vue';
@@ -13,15 +12,12 @@ import PopupConnectWallet from '@/components/popups/PopupConnectWallet.vue';
 import PopupStake from '@/components/popups/PopupStake.vue'
 import PopupClaim from '@/components/popups/PopupClaim.vue'
 import PopupUnstake from '@/components/popups/PopupUnstake.vue';
-import PopupWaiting from '@/components/popups/PopupWaiting.vue';
-
-import Loader from '@/components/base/Loader.vue'
 import PopupEnableTransaction from './popups/PopupEnableTransaction.vue';
+import Alert from '@/components/base/Alert.vue';
 
 
 const storeToken = useToken();
 const storeUi = useUI();
-
 
 </script>
 
@@ -40,19 +36,17 @@ const storeUi = useUI();
             <CardConnect v-if="storeUi.content === 'connect'" />
         </div>
         <div>
-            <ActiveStake v-if="storeToken.allowance" />
+            <ActiveStake />
         </div>
     </div>
-    <PopupConnectWallet v-if="storeUi.isShowPopupConnectWallet" />
-    <PopupEnableTransaction v-if="storeUi.isShowPopupEnableTransaction" />
-    <PopupStake v-if="storeUi.isShowPopupStake" />
-    <PopupClaim v-if="storeUi.isShowPopupClaim" />
-    <PopupUnstake v-if="storeUi.isShowPopupUnstake" />
-    <PopupWaiting v-if="storeUi.isShowPopupWaiting" contentValue="tokens" />
-    <PopupWaiting v-if="storeUi.isShowPopupWaiting && storeUi.isShowPopupEnableTransaction"
-        contentValue="confirmation" />
+    <PopupConnectWallet />
+    <PopupEnableTransaction />
+    <PopupStake />
+    <PopupClaim />
+    <PopupUnstake />
+    <Alert :status="storeUi.alert.status" :header="storeUi.alert.header" :description="storeUi.alert.description"
+        :visible="storeUi.alert.visible" />
 
-    <Loader v-if="storeUi.globalLoading" />
 </template>
 
 <style scoped lang="scss">

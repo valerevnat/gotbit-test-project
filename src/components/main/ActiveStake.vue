@@ -29,7 +29,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="active-stake">
+    <div class="active-stake" v-if="storeToken.allowance">
         <div class="active-stake-title">Active Stake</div>
         <div class="active-stake-info">
             <div class="active-stake-info-main">

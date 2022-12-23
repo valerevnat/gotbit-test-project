@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { parseEther } from 'ethers/lib/utils';
+import { parseUnits } from 'ethers/lib/utils';
 
 import { useUI } from '@/stores/storeUi'
 import { useToken } from '@/stores/storeToken';
@@ -14,21 +14,22 @@ const storeStaking = useStaking();
 
 
 const approveStake = async () => {
-    const num = parseEther(storeUi.amountStake);
+    // parseUnits("1.004", 18)
+    const decimals = await storeToken.getDecimals()
+    const num = parseUnits(storeUi.amountStake, decimals);
     await storeStaking.stake(num)
     await storeToken.balanceOf()
     storeUi.amountStake = ''
-    storeUi.closeModal()
 
 }
 
 </script>
 
 <template>
-    <Modal>
+    <Modal v-model="storeUi.isShowPopupStake">
         <div class="modal-content-propup">
             <div class="modal-content-title">Stake</div>
-            <div class="modal-content-subtitle">By pressing Comfirm you are staking 1000 Coins.
+            <div class="modal-content-subtitle">By pressing Comfirm you are staking {{ storeUi.amountStake }} Coins.
             </div>
             <div class="modal-content-btns">
                 <ButtonComponent variant='btn-mini' @click="storeUi.closeModal()">Cancel</ButtonComponent>

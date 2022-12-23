@@ -2,10 +2,12 @@ import { defineStore } from 'pinia'
 import { providers } from 'ethers'
 declare let window: any
 
-export const useConnect = defineStore('connect', {
+//storeUser
+
+export const useUser = defineStore('user', {
     state: () => {
         return {
-            wallet: "" as string,
+            wallet: "",
             connected: false as boolean,
             signer: () => null as null | providers.JsonRpcSigner,
             provider: () => null as null | providers.JsonRpcProvider,

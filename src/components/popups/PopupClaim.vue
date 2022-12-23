@@ -15,10 +15,12 @@ const handlerClaim = async () => {
     storeUi.changeLoadingForWaiting()
 }
 
+// сделать через v-model props, из container убрать v-if
+
 </script>
 
 <template>
-    <Modal>
+    <Modal v-model="storeUi.isShowPopupClaim">
         <div class="modal-content-propup">
             <div class="modal-content-title">Claim</div>
             <div class="modal-content-subtitle">By pressing Claim you are withdrawing only the tokens you

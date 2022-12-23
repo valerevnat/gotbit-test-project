@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import { HalfCircleSpinner } from 'epic-spinners'
-import Modal from '@/components/base/Modal.vue'
+// import { HalfCircleSpinner } from 'epic-spinners'
+// import Modal from '@/components/base/Modal.vue'
 
+
+// удалить комонент
 </script>
 
-<template>
+<!-- <template>
     <Modal>
         <div class="modal-window-preloader">
             <half-circle-spinner :animation-duration="1000" :size="60" color="#007CFF" />
@@ -15,4 +17,4 @@ import Modal from '@/components/base/Modal.vue'
 
 <style lang="scss" scoped>
 
-</style>
+</style> -->

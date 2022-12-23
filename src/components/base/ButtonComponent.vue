@@ -69,5 +69,6 @@ const props = defineProps<IProps>()
     width: 145px;
     height: 44px;
     background-color: $main-color;
+    color: #FFFFFF;
 }
 </style>

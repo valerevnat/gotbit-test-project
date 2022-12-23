@@ -12,18 +12,16 @@ const storeStaking = useStaking();
 
 
 const confirmTransaction = async () => {
-    storeUi.changePopupWaiting()
-    storeUi.changeLoadingForWaiting()
+    storeUi.changePopupEnableTransaction()
     await storeToken.approve()
     await storeStaking.getUserActiveStake()
     await storeToken.getAllowance()
-    // storeUi.changeLoadingForWaiting()
 }
 
 </script>
 
 <template>
-    <Modal v-if="storeUi.isShowPopupEnableTransaction">
+    <Modal v-model="storeUi.isShowPopupEnableTransaction">
         <div class="modal-content-propup">
             <div class="modal-content-title">Enable transaction</div>
             <div class="modal-content-subtitle">By pressing Confirm you allow the staking contract to

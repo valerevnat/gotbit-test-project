@@ -1,18 +1,19 @@
 import { defineStore } from 'pinia'
-import { BigNumber, Contract, constants } from 'ethers'
-import abisToken from "@/assets/abisToken/abisToken.json";
-import { useConnect } from './storeConnect';
+import { BigNumber, Contract, constants, ethers } from 'ethers'
+import contracts from "@/assets/contracts/contracts.json";
+import { useUser } from '@/stores/storeUser';
+import { useUI } from '@/stores/storeUi';
 
 export const useToken = defineStore('token', {
 
     state: () => {
-        const connect = useConnect()
+        const connect = useUser()
         return {
+            connect,
             balance: BigNumber.from(0) as BigNumber,
-            symbol: "" as string,
-            // allowance: false,
-            allowance: '',
-            connect
+            symbol: "",
+            allowance: false,
+            decimals: ""
         }
     },
 
@@ -20,9 +21,8 @@ export const useToken = defineStore('token', {
         async balanceOf() {
             try {
                 const tokenContract = new Contract(
-                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
-                    abisToken.abiToken,
+                    contracts.token[0].address,
+                    contracts.token[0].abi,
                     this.connect.provider()!
                 );
 
@@ -32,13 +32,26 @@ export const useToken = defineStore('token', {
                 console.log('Error balanceOf', error);
             }
         },
+        async getDecimals() {
+            try {
+                const tokenContract = new Contract(
+                    contracts.token[0].address,
+                    contracts.token[0].abi,
+                    this.connect.provider()!
+                );
+
+                this.decimals = await tokenContract.decimals();
+                console.log(this.decimals.toString());
+            } catch (error) {
+                console.log('Error decimals', error);
+            }
+        },
 
         async getSymbol() {
             try {
                 const tokenContract = new Contract(
-                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
-                    abisToken.abiToken,
+                    contracts.token[0].address,
+                    contracts.token[0].abi,
                     this.connect.provider()!
                 );
 
@@ -51,46 +64,26 @@ export const useToken = defineStore('token', {
         async getAllowance() {
             try {
                 const tokenContract = new Contract(
-                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
-                    abisToken.abiToken,
+                    contracts.token[0].address,
+                    contracts.token[0].abi,
                     this.connect.provider()!
                 );
-                this.allowance = await tokenContract.allowance(this.connect.wallet, abisToken.staking)
+                const allowance = await tokenContract.allowance(this.connect.wallet, contracts.staking[0].address)
+                this.allowance = allowance.gte(ethers.constants.MaxUint256.div(2))
+                console.log('сравнение', allowance.gte(ethers.constants.MaxUint256.div(2)));
+                console.log('this.allowance', this.allowance);
+
             } catch (error) {
                 console.log('Error allowance', error);
             }
 
         },
 
-        // async getAllowance() {
-        //     try {
-        //         const tokenContract = new Contract(
-        // //"0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-        //             abisToken.token,
-        //             abisToken.abiToken,
-        //             this.connect.provider()!
-        //         );
-        //         const allowance = await tokenContract.allowance(this.connect.wallet, '0x59DbFE8A7Bd294dFdB9DA369874d10e2CaE1d648')
-        //         this.allowance = allowance > ethers.constants.MaxUint256.div(2)
-        //         console.log('allowance', allowance);
-        //         console.log('ethers.constants.MaxUint256.div(2)', constants.MaxUint256.div(2));
-        //         console.log('сравнение', ethers.constants.MaxUint256.div(2) > allowance);
-
-        //         console.log('this.allowance', this.allowance);
-
-        //     } catch (error) {
-        //         console.log('Error allowance', error);
-        //     }
-
-        // },
-
         async mint() {
             try {
                 const tokenContract = new Contract(
-                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
-                    abisToken.abiToken,
+                    contracts.token[0].address,
+                    contracts.token[0].abi,
                     this.connect.provider()!
                 );
 
@@ -104,21 +97,24 @@ export const useToken = defineStore('token', {
         },
 
         async approve() {
+            const ui = useUI()
+            ui.createAlert('loading', 'Waiting for confirmation', 'It will take some time for the confirmation to be completed.')
+            ui.alert.visible = true
             try {
                 const tokenContract = new Contract(
-                    // "0xf39e079A05BF67421e8bf881f2297c8eE9a2A004",
-                    abisToken.token,
-                    abisToken.abiToken,
+                    contracts.token[0].address,
+                    contracts.token[0].abi,
                     this.connect.provider()!
                 );
 
                 const tx = await tokenContract
                     .connect(this.connect.signer()!)
-                    .approve(abisToken.staking, constants.MaxUint256);
+                    .approve(contracts.staking[0].address, constants.MaxUint256);
+                ui.createAlert('success', 'Waiting for confirmation', 'Congratulations! Confirmation is completed.')
             } catch (error) {
                 console.log('Error approve', error);
+                ui.createAlert('error', 'Error', 'We couldn’t proceed your approve. Please try again!')
             }
-
         },
 
     },

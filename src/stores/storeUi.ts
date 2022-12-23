@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 
-
 export const useUI = defineStore('uiStore', {
     state: () => {
         return {
@@ -13,15 +12,34 @@ export const useUI = defineStore('uiStore', {
 
             isShowPopupConnectWallet: false,
             isShowPopupEnableTransaction: false,
-            isShowPopupWaiting: false,
+            // isShowAlert: false,
             isShowPopupUnstake: false,
             isShowPopupClaim: false,
             isShowPopupStake: false,
             isloadingForWaiting: false,
+
+            alert: {
+                status: 'loading',
+                header: '',
+                description: '',
+                visible: false
+            }
         }
     },
 
     actions: {
+        createAlert(status: string, header: string, description: string) {
+            this.alert.status = status
+            this.alert.header = header
+            this.alert.description = description
+            //...
+            this.alert.visible = true
+            //для управления alert, чтобы не писать логику внутри
+        },
+        // changeAlert() {
+        //     this.isShowAlert = !this.isShowAlert
+        // },
+
         showModal() {
             this.isShowModal = !this.isShowModal
             console.log(this.isShowModal);

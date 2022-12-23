@@ -19,7 +19,7 @@ const unstake = async () => {
 </script>
 
 <template>
-    <Modal>
+    <Modal v-model="storeUi.isShowPopupUnstake">
         <div class="modal-content-propup">
             <div class="modal-content-title">Unstake</div>
             <div class="modal-content-subtitle">By pressing Unstake you are withdrawing the amount of tokens

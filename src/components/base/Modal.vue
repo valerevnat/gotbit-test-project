@@ -1,13 +1,19 @@
 <script lang="ts" setup>
 import { useUI } from '@/stores/storeUi'
 
+export interface ModalProps {
+    modelValue: boolean
+}
+
+const props = defineProps<ModalProps>();
+
 const storeUi = useUI();
 
 
 </script>
 
 <template>
-    <div class="modal-window">
+    <div v-if="props.modelValue" class="modal-window">
         <div class="modal-content">
             <div class="modal-content-close" @click="storeUi.closeModal">
                 <img src="../../assets/img/close-circle.png" alt="">
