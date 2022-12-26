@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { useUI } from '@/stores/storeUi'
-import ButtonComponent from "../base/ButtonComponent.vue";
+import ButtonComponent from "@/components/base/ButtonComponent.vue";
 
 const storeUi = useUI();
 
@@ -35,6 +35,28 @@ const showConnectWallet = async () => {
 
     &-img {
         margin-bottom: 70px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .basic-content {
+        width: 343px;
+
+        &-img {
+            width: 100%;
+
+            img {
+                width: 90%;
+            }
+        }
+
+        .btn-main {
+            width: 266px;
+        }
+
+
     }
 }
 </style>

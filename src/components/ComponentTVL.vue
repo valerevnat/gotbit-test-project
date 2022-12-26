@@ -23,15 +23,16 @@ const showTooltip = () => {
         <div class="basic-content-tvl-help">
             <div class="basic-content-tvl-help-btn" @click="showTooltip">
                 <img src="../assets/img/help-inactive.svg" alt="help" />
+                <div class="basic-content-tvl-tooltip">
+                    <ToolTip :tooltip="tooltip">
+                        <div class="basic-content-tvl-help-text">Total Value Locked (TVL) represents the dollar value of
+                            cryptocurrencies currently locked up on the staking smart contract.
+                        </div>
+                    </ToolTip>
+                </div>
             </div>
         </div>
-        <div class="basic-content-tvl-tooltip">
-            <ToolTip :tooltip="tooltip">
-                <div class="basic-content-tvl-help-text">Total Value Locked (TVL) represents the dollar value of
-                    cryptocurrencies currently locked up on the staking smart contract.
-                </div>
-            </ToolTip>
-        </div>
+
     </div>
 </template>
 
@@ -57,6 +58,16 @@ const showTooltip = () => {
     &-help {
         &-btn {
             cursor: pointer;
+
+            img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .basic-content-tvl-tooltip {
+                position: absolute;
+                top: 25%
+            }
         }
     }
 
@@ -65,4 +76,31 @@ const showTooltip = () => {
         left: 100%;
     }
 }
+
+// @media (max-width: 768px) {
+//     .basic-content-tvl {
+//         &-text {
+//             font-size: 28px;
+//         }
+
+//         &-help {
+//             &-btn {
+//                 cursor: pointer;
+
+//                 img {
+//                     width: 20px;
+//                     height: 20px;
+//                 }
+//             }
+//         }
+
+//         &-tooltip {
+//             position: absolute;
+//             // left: 100%;
+//             top: calc(100% + 10px);
+//             left: -35%;
+
+//         }
+//     }
+// }
 </style>

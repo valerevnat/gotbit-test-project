@@ -35,6 +35,8 @@ const storeUi = useUI();
     backdrop-filter: blur(2.5px);
     position: fixed;
     display: flex;
+    height: 100vh;
+    width: 100vw;
 
     .modal-content {
         margin: auto;
@@ -94,6 +96,30 @@ const storeUi = useUI();
             justify-content: center;
         }
 
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-window {
+
+        .modal-content {
+            width: 343px;
+            height: 424px;
+
+            &-title {
+                font-size: 24px;
+            }
+
+            &-subtitle {
+                font-size: 18px;
+            }
+
+            &-close {
+                top: 16px;
+                right: 16px;
+            }
+
+        }
     }
 }
 </style>

@@ -12,7 +12,7 @@ import PopupConnectWallet from '@/components/popups/PopupConnectWallet.vue';
 import PopupStake from '@/components/popups/PopupStake.vue'
 import PopupClaim from '@/components/popups/PopupClaim.vue'
 import PopupUnstake from '@/components/popups/PopupUnstake.vue';
-import PopupEnableTransaction from './popups/PopupEnableTransaction.vue';
+import PopupEnableTransaction from '@/components/popups/PopupEnableTransaction.vue';
 import Alert from '@/components/base/Alert.vue';
 
 
@@ -57,7 +57,7 @@ const storeUi = useUI();
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 110px;
+    margin-top: 120px;
 
     .title {
         display: flex;
@@ -83,6 +83,7 @@ const storeUi = useUI();
         background: #FFFFFF;
         border-radius: 24px;
         padding: 40px 0 40px 0;
+        margin-top: 32px;
 
         &-apy-tvl {
             position: relative;
@@ -91,6 +92,27 @@ const storeUi = useUI();
             align-items: center;
         }
 
+    }
+
+}
+
+@media (max-width: 768px) {
+    .container {
+        .title {
+
+            &-left,
+            &-right {
+                font-size: 32px;
+            }
+        }
+
+        &-content {
+            width: 343px;
+            padding: 38.5px 16px 0 16px;
+            margin-top: 24px;
+            border-radius: 12px;
+
+        }
     }
 
 }

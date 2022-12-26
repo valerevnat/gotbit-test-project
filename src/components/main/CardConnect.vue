@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
+
 import { useToken } from '@/stores/storeToken';
 import { useStaking } from '@/stores/storeStaking'
 import { useUI } from '@/stores/storeUi'
-import { onMounted } from 'vue';
 
 import ButtonComponent from '@/components/base/ButtonComponent.vue'
 
@@ -117,6 +118,20 @@ const handlerMax = () => {
 
     .btn-disabled {
         opacity: 0.5;
+    }
+}
+
+@media (max-width: 768px) {
+    .metamask {
+        width: 100%;
+        padding: 0;
+
+        &-amount {
+            input {
+                width: 100%;
+            }
+        }
+
     }
 }
 </style>

@@ -45,4 +45,14 @@ const props = defineProps({
         left: 3%;
     }
 }
+
+@media (max-width: 768px) {
+    .tooltip {
+
+        &-triangle {
+            bottom: 49px;
+            left: 68%;
+        }
+    }
+}
 </style>

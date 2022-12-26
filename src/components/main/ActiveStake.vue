@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, onRenderTriggered, onUpdated } from 'vue';
+import { onMounted } from 'vue';
 
 import { useUI } from '@/stores/storeUi'
 import { useToken } from '@/stores/storeToken';
@@ -60,7 +60,6 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     min-width: 621px;
-    min-height: 204px;
     margin: 40px 0;
 
     &-title {
@@ -76,10 +75,9 @@ onMounted(() => {
         flex-direction: column;
         align-items: center;
         background: #FFFFFF;
-        border-radius: 24px;
+        border-radius: 16px;
         padding: 24px 31px;
 
-        // display: flex;
         &-main {
             width: 100%;
             display: flex;
@@ -92,9 +90,44 @@ onMounted(() => {
             }
         }
 
+        &-text {
+            color: #9799A1;
+            font-size: 16px;
+        }
+
         &-coin {
             display: flex;
+            color: #000000;
+            font-size: 20px;
         }
+    }
+}
+
+@media (max-width: 768px) {
+    .active-stake {
+        min-width: 343px;
+
+        &-title {
+            font-size: 32px;
+        }
+
+        &-info {
+            width: 343px;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+
+            &-main {
+                width: 100%;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            &-btn {
+                margin-top: 16px;
+            }
+        }
+
     }
 }
 </style>
