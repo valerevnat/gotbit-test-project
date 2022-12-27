@@ -27,9 +27,9 @@ const showConnectCard = async () => {
             <div class="modal-content-subtitle">To perform actions on this page you need to connect your
                 wallet</div>
             <ButtonComponent variant='btn-metamask' @click="showConnectCard">
-                <div class="modal-propup-main">
+                <div class="modal-content-popup">
                     <img src="@/assets/img/logo-mask.png" alt="MetaMask" />
-                    <div class="modal-propup-main-text">MetaMask Provider</div>
+                    <div class="modal-popup-main-text">MetaMask Provider</div>
                 </div>
             </ButtonComponent>
         </div>

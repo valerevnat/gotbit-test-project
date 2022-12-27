@@ -22,13 +22,13 @@ const storeUi = useUI();
 </script>
 
 <template>
-    <div class="container">
+    <div class="component-container">
         <div class="title">
             <div class="title-left">Flexible</div>
             <div class="title-right">Staking</div>
         </div>
-        <div class="container-content">
-            <div class="container-content-apy-tvl">
+        <div class="component-container-content">
+            <div class="component-container-content-apy-tvl">
                 <ComponentAPY />
                 <ComponentTVL />
             </div>
@@ -52,7 +52,7 @@ const storeUi = useUI();
 <style scoped lang="scss">
 @import '../assets/styles/variables.scss';
 
-.container {
+.component-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,7 +97,7 @@ const storeUi = useUI();
 }
 
 @media (max-width: 768px) {
-    .container {
+    .component-container {
         .title {
 
             &-left,

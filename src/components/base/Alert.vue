@@ -23,11 +23,11 @@ const storeUi = useUI();
     <Modal v-model="storeUi.alert.visible">
         <div class="modal-content-propup">
             <div v-if="props.status !== 'error'" class="modal-content-title">{{ props.header }}</div>
-            <div v-if="props.status === 'error'" class="title">
+            <div v-if="props.status === 'error'" class="alert-title">
                 <div class="title-img"><img src="@/assets/img/error-icon.png" alt="Error"></div>
                 <div class="modal-content-title error">{{
-                        props.header
-                }}</div>
+        props.header
+}}</div>
             </div>
 
             <div class="modal-content-subtitle">{{ props.description }}</div>
@@ -57,9 +57,11 @@ const storeUi = useUI();
     color: #EE5A51;
 }
 
-.title {
-    transform: translateX(25%);
-    position: relative;
+.alert-title {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    align-items: flex-end;
 
     &-img {
         position: absolute;

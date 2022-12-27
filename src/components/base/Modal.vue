@@ -70,9 +70,10 @@ const storeUi = useUI();
 
         }
 
-        &-propup {
+        &-popup {
             display: flex;
-            flex-direction: column;
+            // flex-direction: column;
+            justify-content: center;
             align-items: center;
             width: 100%;
         }
@@ -93,6 +94,11 @@ const storeUi = useUI();
         }
 
         &-btns-center {
+            justify-content: center;
+        }
+
+        &-preloader {
+            display: flex;
             justify-content: center;
         }
 
